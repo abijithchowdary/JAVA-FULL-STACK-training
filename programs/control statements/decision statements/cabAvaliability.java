@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+class cabAvaliability
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Welcome to jalandhar cab services...");
+		System.out.println("Enter your destination : ");
+		String destination = sc.nextLine();
+		if(destination.equals("jalandhar") || destination.equals("pagwara") || destination.equals("ludiana") || destination.equals("amritser") || destination.equals("delhi") || destination.equals("chandigarh") || destination.equals("mohali")){
+			boolean service = true;
+		}else{
+			boolean service = false;
+		}
+		System.out.println("Enter avaliable Drivers : ");
+		int avaliableDrivers = sc.nextInt();
+		System.out.println("Current avaliable Driver are : "+ avaliableDrivers);
+		if(service == true){
+			if(avaliableDrivers != 0){
+				System.out.println("Enter your payment method cash or online : ");
+				String payment = sc.nextLine();
+				System.out.println("your ride is booked on " + payment + " payment method");
+			}else{
+				System.out.println("Sorry We're fully booked");
+			}
+		}else{
+		System.out.println("Sorry, your destination is not serviceable");
+		}
+	}
+}

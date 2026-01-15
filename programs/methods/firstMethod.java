@@ -1,0 +1,42 @@
+import java.util.Scanner;
+class firstMethod 
+{
+	public static void main(String[] args) 
+	{
+		m1();
+		}
+		public static void m1(){
+			Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the number : ");
+		int n1 = sc.nextInt();
+		System.out.print("Enter the Second Number : ");
+		int n2 = sc.nextInt();
+		int res = n1 + n2;
+		System.out.println("Addition : " + res);
+		m2();
+		sc.close();
+		
+		}
+		public static void m2(){
+			Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the number : ");
+		int n1 = sc.nextInt();
+		System.out.print("Enter the Second Number : ");
+		int n2 = sc.nextInt();
+		int res = n1 - n2;
+		System.out.println("Addition : " + res);
+		m3();
+		sc.close();
+		
+		}
+		public static void m3(){
+			Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the number : ");
+		int n1 = sc.nextInt();
+		System.out.print("Enter the Second Number : ");
+		int n2 = sc.nextInt();
+		int res = n1 * n2;
+		System.out.println("Addition : " + res);
+		sc.close();
+		}
+}

@@ -1,0 +1,10 @@
+class q7 
+{
+	public static void main(String[] args) 
+	{
+		double Bill = 2567.65;
+		int AmountPaid = 2480;
+		String result = (((Bill - AmountPaid) < 1)?"Bill Paid":"Bill is Still Pending");
+		System.out.println(result);
+	}
+}

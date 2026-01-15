@@ -1,0 +1,10 @@
+class q6
+{
+	public static void main(String[] args) 
+	{
+		int Price = 2000;
+		int UpdatedPrice = 2000;
+		String Result = ((UpdatedPrice < Price)?"Price Droped":((UpdatedPrice > Price)?"Price increased":"Price is Same"));
+		System.out.println(Result);
+	}
+}

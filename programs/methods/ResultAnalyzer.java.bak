@@ -1,0 +1,41 @@
+import java.util.Scanner;
+class ResultAnalyzer
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter your marks in s1 : ");
+		int s1 = sc.nextInt();
+		System.out.println("Enter your marks in s2 : ");
+		int s2 = sc.nextInt();
+		System.out.println("Enter your marks in s3 : ");
+		int s3 = sc.nextInt();
+		System.out.println(m1(s1,s2,s3);
+	}
+	public static String m1(int s1,int s2,int s3){ 
+		if(s1 >= 40 && s2 >= 40 && s3 >= 40){
+		double avg = (s1+s2+s3)/3;
+		if(avg < 40){
+			return "your grade is f , youre not eligible fo placements";
+			
+		}else if(avg >= 40 && avg <= 60){
+			return "your grade is d , youre eligible fo placements";
+
+		}else if(avg > 60 && avg <= 70){
+			return "your grade is c , youre eligible fo placements";
+			
+		}else if(avg > 70 && avg <= 80){
+			return "your grade is b , youre eligible fo placements";
+			
+		}else if(avg > 80 && avg <= 90){
+			return "your grade is a , youre eligible fo placements";
+			
+		}else{
+			return "your grade is o , youre eligible fo placements";
+			
+		}
+		}else{
+		return "you're not eligible for placement drive becouse you failed in oone subject!!!!";
+		}
+	}
+}
