@@ -1,0 +1,10 @@
+class q8 
+{
+	public static void main(String[] args) 
+	{
+		int OrderAmount = 6000;
+		int AvgOrderAmount = 10000;
+		String result = ((OrderAmount <= AvgOrderAmount)?"Happy Shoping":"This Order is under Froud");
+		System.out.print(result);
+	}
+}

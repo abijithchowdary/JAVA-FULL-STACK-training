@@ -1,0 +1,9 @@
+class VowOrConUpper 
+{
+	public static void main(String[] args) 
+	{
+		char a = 'J';
+		String res = (((a == 'A') || (a == 'E') || (a == 'I') || (a == 'O') || (a == 'U'))?"it is uppercase vowel":"it is uppercase consonent");
+		System.out.println(res);
+	}
+}

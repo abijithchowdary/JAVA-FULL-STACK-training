@@ -1,0 +1,260 @@
+SQL> -- 1st Question
+SQL> select min(SAL)
+  2  from emp
+  3  where SAL > (select min(SAL) from emp);
+
+  MIN(SAL)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+       950                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> -- 2nd Question
+SQL> SELECT MAX(SAL) AS FIFTH_MAX_SALARY
+  2  FROM EMP
+  3  WHERE SAL < (
+  4      SELECT MAX(SAL)
+  5      FROM EMP
+  6      WHERE SAL < (
+  7          SELECT MAX(SAL)
+  8          FROM EMP
+  9          WHERE SAL < (
+ 10              SELECT MAX(SAL)
+ 11              FROM EMP
+ 12              WHERE SAL < (
+ 13                  SELECT MAX(SAL)
+ 14                  FROM EMP
+ 15              )
+ 16          )
+ 17      )
+ 18  );
+
+FIFTH_MAX_SALARY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+----------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+            2450                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
+SQL> -- 3rd Question
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE SAL = (
+  4      SELECT MAX(SAL)
+  5      FROM EMP
+  6      WHERE SAL < (
+  7          SELECT MAX(SAL)
+  8          FROM EMP
+  9          WHERE SAL < (
+ 10              SELECT MAX(SAL)
+ 11              FROM EMP
+ 12          )
+ 13      )
+ 14  );
+
+ENAME                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+JONES                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+SQL> -- 4th Question
+SQL> SELECT EMPNO
+  2  FROM EMP
+  3  WHERE SAL = (
+  4      SELECT MAX(SAL)
+  5      FROM EMP
+  6      WHERE SAL < (
+  7          SELECT MAX(SAL)
+  8          FROM EMP
+  9      )
+ 10  );
+
+     EMPNO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+      7788                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+      7902                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+SQL> -- 5th Question
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO = (
+  4      SELECT DEPTNO
+  5      FROM EMP
+  6      WHERE SAL = (
+  7          SELECT MAX(SAL)
+  8          FROM EMP
+  9          WHERE SAL < (
+ 10              SELECT MAX(SAL)
+ 11              FROM EMP
+ 12              WHERE SAL < (
+ 13                  SELECT MAX(SAL)
+ 14                  FROM EMP
+ 15                  WHERE SAL < (
+ 16                      SELECT MAX(SAL)
+ 17                      FROM EMP
+ 18                  )
+ 19              )
+ 20          )
+ 21      )
+ 22  );
+
+DNAME                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+--------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+SALES                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+SQL> -- 6th Question
+SQL> select *
+  2  from emp
+  3  where min(HIREDATE)
+  4  
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE HIREDATE = (
+  4      SELECT MIN(HIREDATE)
+  5      FROM EMP
+  6      WHERE HIREDATE > (
+  7          SELECT MIN(HIREDATE)
+  8          FROM EMP
+  9      )
+ 10  );
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+SQL> -- 7th Question
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE HIREDATE = (
+  4      SELECT MAX(HIREDATE)
+  5      FROM EMP
+  6      WHERE HIREDATE < (
+  7          SELECT MAX(HIREDATE)
+  8          FROM EMP
+  9      )
+ 10  );
+
+ENAME                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+SCOTT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+SQL> -- 8th Question
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO = (
+  4      SELECT DEPTNO
+  5      FROM EMP
+  6      WHERE HIREDATE = (
+  7          SELECT MIN(HIREDATE)
+  8          FROM EMP
+  9      )
+ 10  );
+
+LOC                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+-------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+DALLAS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+SQL> -- 9th Question
+SQL> SELECT *
+  2  FROM EMP e
+  3  WHERE 7 = (
+  4      SELECT COUNT(DISTINCT sal)
+  5      FROM EMP
+  6      WHERE sal <= e.sal
+  7  );
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+SQL> -- 10th Question
+SQL> SELECT dname
+  2  FROM dept
+  3  WHERE deptno = (
+  4      SELECT deptno
+  5      FROM emp
+  6      WHERE sal = (
+  7          SELECT MAX(sal)
+  8          FROM emp
+  9          WHERE sal < (
+ 10              SELECT MAX(sal)
+ 11              FROM emp
+ 12          )
+ 13      )
+ 14  );
+    SELECT deptno
+    *
+ERROR at line 4:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> select DNAME
+  2  from dept
+  3  where DEPTNO = ()
+  4  where DEPTNO = ()
+  5  
+SQL> select DNAME
+  2  from DEPT
+  3  where DEPTNO = ()
+  4  
+SQL> 
+SQL> select DNAME
+  2  from DEPT
+  3  where DEPTNO = (
+  4  	select DEPTNO
+  5  	from EMP
+  6  	where SAL < (
+  7  		select max(SAL)
+  8  		from EMP
+  9  	)
+ 10  )
+ 11  );
+)
+*
+ERROR at line 11:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select DNAME from dept where DEPTNO = (select DEPTNO from EMP where SAL < (select max(SAL) from EMP));
+select DNAME from dept where DEPTNO = (select DEPTNO from EMP where SAL < (select max(SAL) from EMP))
+                                       *
+ERROR at line 1:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO = (
+  4      SELECT DEPTNO
+  5      FROM EMP
+  6      WHERE SAL = (
+  7          SELECT MAX(SAL)
+  8          FROM EMP
+  9          WHERE SAL < (
+ 10              SELECT MAX(SAL)
+ 11              FROM EMP
+ 12          )
+ 13      )
+ 14  );
+    SELECT DEPTNO
+    *
+ERROR at line 4:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN (
+  4      SELECT DEPTNO
+  5      FROM EMP
+  6      WHERE SAL = (
+  7          SELECT MAX(SAL)
+  8          FROM EMP
+  9          WHERE SAL < (
+ 10              SELECT MAX(SAL)
+ 11              FROM EMP
+ 12          )
+ 13      )
+ 14  );
+
+DNAME                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+--------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+RESEARCH                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+
+SQL> spool
+currently spooling to C:\Users\Kanav Jethi\Downloads\Java Full Stack Capgemini\SQL\Assignments\Assignment_13.txt
+SQL> spool off

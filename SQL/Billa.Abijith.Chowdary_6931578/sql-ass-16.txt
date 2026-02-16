@@ -1,0 +1,171 @@
+SQL> -- 1 WAQTD NAME OF THE EMPLOYEE AND HIS MANAGER'S NAME IF EMPLOYEE IS WORKING AS CLERK
+SQL> SELECT E.ENAME, M.ENAME
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.JOB = 'CLERK';
+
+ENAME      ENAME                                                                                    
+---------- ----------                                                                               
+SMITH      FORD                                                                                     
+ADAMS      SCOTT                                                                                    
+JAMES      BLAKE                                                                                    
+MILLER     CLARK                                                                                    
+
+SQL> -- 2 WAQTD NAME OF THE EMPLOYEE AND MANAGER'S DESIGNATION IF MANAGER WORKS IN DEPT 10 OR 20
+SQL> SELECT E.ENAME, M.JOB
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.DEPTNO IN (10,20);
+
+ENAME      JOB                                                                                      
+---------- ---------                                                                                
+SMITH      ANALYST                                                                                  
+JONES      PRESIDENT                                                                                
+BLAKE      PRESIDENT                                                                                
+CLARK      PRESIDENT                                                                                
+SCOTT      MANAGER                                                                                  
+ADAMS      ANALYST                                                                                  
+FORD       MANAGER                                                                                  
+MILLER     MANAGER                                                                                  
+
+8 rows selected.
+
+SQL> -- 3 WAQTD NAME OF THE EMP AND MANAGERS SALARY IF EMPLOYEE AND MANAGER BOTH EARN MORE THAN 2300
+SQL> SELECT E.ENAME, M.SAL
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.SAL > 2300
+  5  AND M.SAL > 2300;
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+JONES            5000                                                                               
+BLAKE            5000                                                                               
+CLARK            5000                                                                               
+SCOTT            2975                                                                               
+FORD             2975                                                                               
+
+SQL> -- 4 WAQTD EMP NAME AND MANAGER'S HIREDATE IF EMPLOYEE WAS HIRED BEFORE 1982
+SQL> SELECT E.ENAME, M.HIREDATE
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.HIREDATE < '01-JAN-82';
+
+ENAME      HIREDATE                                                                                 
+---------- ---------                                                                                
+SMITH      03-DEC-81                                                                                
+ALLEN      01-MAY-81                                                                                
+WARD       01-MAY-81                                                                                
+JONES      17-NOV-81                                                                                
+MARTIN     01-MAY-81                                                                                
+BLAKE      17-NOV-81                                                                                
+CLARK      17-NOV-81                                                                                
+TURNER     01-MAY-81                                                                                
+JAMES      01-MAY-81                                                                                
+FORD       02-APR-81                                                                                
+
+10 rows selected.
+
+SQL> -- 5 WAQTD EMP NAME AND MANAGER'S COMM IF EMPLOYEE WORKS AS SALESMAN AND MANAGER WORKS IN DEPT 30
+SQL> SELECT E.ENAME, M.COMM
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.JOB = 'SALESMAN'
+  5  AND M.DEPTNO = 30;
+
+ENAME            COMM                                                                               
+---------- ----------                                                                               
+ALLEN                                                                                               
+WARD                                                                                                
+MARTIN                                                                                              
+TURNER                                                                                              
+
+SQL> -- 6 WAQTD EMP NAME AND MANAGER NAME AND THEIR SALARIES IF EMPLOYEE EARNS MORE THAN MANAGER
+SQL> SELECT E.ENAME, M.ENAME, E.SAL, M.SAL
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.SAL > M.SAL;
+
+ENAME      ENAME             SAL        SAL                                                         
+---------- ---------- ---------- ----------                                                         
+SCOTT      JONES            3000       2975                                                         
+FORD       JONES            3000       2975                                                         
+
+SQL> -- 7 WAQTD EMP NAME AND HIREDATE, MANAGER NAME AND HIREDATE IF MANAGER WAS HIRED BEFORE EMPLOYEE
+SQL> SELECT E.ENAME, E.HIREDATE, M.ENAME, M.HIREDATE
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.HIREDATE < E.HIREDATE;
+
+ENAME      HIREDATE  ENAME      HIREDATE                                                            
+---------- --------- ---------- ---------                                                           
+MARTIN     28-SEP-81 BLAKE      01-MAY-81                                                           
+SCOTT      09-DEC-82 JONES      02-APR-81                                                           
+TURNER     08-SEP-81 BLAKE      01-MAY-81                                                           
+ADAMS      12-JAN-83 SCOTT      09-DEC-82                                                           
+JAMES      03-DEC-81 BLAKE      01-MAY-81                                                           
+FORD       03-DEC-81 JONES      02-APR-81                                                           
+MILLER     23-JAN-82 CLARK      09-JUN-81                                                           
+
+7 rows selected.
+
+SQL> -- 8 WAQTD EMP NAME AND MANAGER NAME IF BOTH ARE WORKING IN SAME JOB
+SQL> SELECT E.ENAME, M.ENAME
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.JOB = M.JOB;
+
+no rows selected
+
+SQL> -- 9 WAQTD EMP NAME AND MANAGER NAME IF MANAGER IS WORKING AS ACTUAL MANAGER
+SQL> SELECT E.ENAME, M.ENAME
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.JOB = 'MANAGER';
+
+ENAME      ENAME                                                                                    
+---------- ----------                                                                               
+ALLEN      BLAKE                                                                                    
+WARD       BLAKE                                                                                    
+MARTIN     BLAKE                                                                                    
+SCOTT      JONES                                                                                    
+TURNER     BLAKE                                                                                    
+JAMES      BLAKE                                                                                    
+FORD       JONES                                                                                    
+MILLER     CLARK                                                                                    
+
+8 rows selected.
+
+SQL> -- 10 WAQTD EMP NAME AND MANAGER NAME ALONG WITH THEIR ANNUAL SALARIES IF EMPLOYEE WORKS IN DEPT 10, 20 AND MANAGER'S SAL IS GREATER THAN EMPLOYEES SALARY
+SQL> SELECT E.ENAME, M.ENAME, E.SAL*12, M.SAL*12
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.DEPTNO IN (10,20)
+  5  AND M.SAL > E.SAL;
+
+ENAME      ENAME        E.SAL*12   M.SAL*12                                                         
+---------- ---------- ---------- ----------                                                         
+SMITH      FORD             9600      36000                                                         
+JONES      KING            35700      60000                                                         
+CLARK      KING            29400      60000                                                         
+ADAMS      SCOTT           13200      36000                                                         
+MILLER     CLARK           15600      29400                                                         
+
+SQL> -- 12 WAQTD EMPLOYEE'S NAME AND MANAGER'S SALARY FOR ALL THE EMPLOYEES IF MANAGER'S SALARY ENDS WITH 50
+SQL> SELECT E.ENAME, M.SAL
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.SAL LIKE '%50';
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+ALLEN            2850                                                                               
+WARD             2850                                                                               
+MARTIN           2850                                                                               
+TURNER           2850                                                                               
+JAMES            2850                                                                               
+MILLER           2450                                                                               
+
+6 rows selected.
+
+SQL> SPOOL OFF

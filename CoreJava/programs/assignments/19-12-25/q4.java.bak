@@ -1,0 +1,9 @@
+class q4 
+{
+	public static void main(String[] args) 
+	{
+		int CartValue = 285;
+		String Result = ((CartValue > 2000)?"Youre eigible for Discount":"Youre not eligible for discount");
+		System.out.println(Result);
+	}
+}

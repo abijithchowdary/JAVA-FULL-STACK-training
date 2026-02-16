@@ -1,0 +1,20 @@
+import java.util.Scanner;
+class ReverseNum
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the number");
+		int n = sc.nextInt();
+		String res = "";
+		
+		while(n > 0){
+			//System.out.print(n%10);
+			//n /= 10;
+			int nn = n%10;
+			res = res+nn;
+			n /= 10;
+		}
+		System.out.println("Rverse number is : " + Integer.parseInt(res));
+	}
+}

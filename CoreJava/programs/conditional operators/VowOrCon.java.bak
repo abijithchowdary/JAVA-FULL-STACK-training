@@ -1,0 +1,9 @@
+class VowOrCon 
+{
+	public static void main(String[] args) 
+	{
+		char a = 'a';
+		String res = (((a == 'a') || (a == 'i') || (a == 'e') || (a == 'o') || (a == 'u')||(a == 'A') || (a == 'E') || (a == 'I') || (a == 'O') || (a == 'U'))?"it is lowercase vowel":"it is lowercase consonent");
+		System.out.println(res);
+	}
+}

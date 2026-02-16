@@ -1,0 +1,29 @@
+import java.util.*;
+class Secondhighestofarray
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc =new Scanner(System.in);
+		
+		System.out.println("Enter the size of a array : ");
+		int[] a = new int[sc.nextInt()];
+		
+		for(int i=0;i<a.length;i++){
+			System.out.println("Enter the element number " + (i+1) +" :");
+			a[i] = sc.nextInt();
+		}
+		int m = 0;
+		for(int i=0;i<a.length-1;i++){
+			for(int j=i+1;j<a.length;j++){
+				if(a[i] > a[j]){
+					m = a[i];
+					a[i]=a[j];
+					a[j] = m;
+				}
+			}
+			
+		}
+		System.out.println("Second highest number : "+a[a.length-2]);
+
+	}
+}

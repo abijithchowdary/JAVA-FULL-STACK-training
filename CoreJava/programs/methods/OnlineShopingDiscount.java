@@ -1,0 +1,22 @@
+import java.util.Scanner;
+class  OnlineShopingDiscount
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter amount : ");
+		double amount = sc.nextDouble();
+		System.out.println("enter customer type primium(true) , regular(false) : ");
+		boolean ct = sc.nextBoolean();
+		System.out.println(m1(ct,amount));
+	}
+	public static String m1(boolean ct,double amount){
+		int min = 3000;
+		if((ct == true) || (amount >= min)){
+		amount -= (amount/10);
+		return "Your total Amount is : " + amount;
+		}else{
+		return "Your total Amount is : " + amount;
+		}
+	}
+}

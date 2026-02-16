@@ -1,0 +1,101 @@
+SQL> -- 1 WAQTD EMPLOYEE NAME AND HIS MANAGER'S NAME AND MANAGER'S MANAGER NAME IF EMPLOYEE IS WORKING AS CLERK
+SQL> SELECT E.ENAME, M.ENAME, MM.ENAME
+  2  FROM EMP E, EMP M, EMP MM
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.MGR = MM.EMPNO
+  5  AND E.JOB = 'CLERK';
+
+ENAME      ENAME      ENAME                                                                         
+---------- ---------- ----------                                                                    
+SMITH      FORD       JONES                                                                         
+ADAMS      SCOTT      JONES                                                                         
+JAMES      BLAKE      KING                                                                          
+MILLER     CLARK      KING                                                                          
+
+SQL> -- 2 WAQTD EMPLOYEE NAME & HIS DNAME AND MANAGER'S DESIGNATION AND HIS LOCATION IF MANAGER WORKS IN DEPT 10 OR 20
+SQL> SELECT E.ENAME, D.DNAME, M.JOB, DM.LOC
+  2  FROM EMP E, DEPT D, EMP M, DEPT DM
+  3  WHERE E.DEPTNO = D.DEPTNO
+  4  AND E.MGR = M.EMPNO
+  5  AND M.DEPTNO = DM.DEPTNO
+  6  AND M.DEPTNO IN (10,20);
+
+ENAME      DNAME          JOB       LOC                                                             
+---------- -------------- --------- -------------                                                   
+SMITH      RESEARCH       ANALYST   DALLAS                                                          
+JONES      RESEARCH       PRESIDENT NEW YORK                                                        
+BLAKE      SALES          PRESIDENT NEW YORK                                                        
+CLARK      ACCOUNTING     PRESIDENT NEW YORK                                                        
+SCOTT      RESEARCH       MANAGER   DALLAS                                                          
+ADAMS      RESEARCH       ANALYST   DALLAS                                                          
+FORD       RESEARCH       MANAGER   DALLAS                                                          
+MILLER     ACCOUNTING     MANAGER   NEW YORK                                                        
+
+8 rows selected.
+
+SQL> -- 3 WAQTD NAME OF THE EMP AND MANAGERS SALARY ALONG WITH MANAGER'S MANAGER HIREDATE IF MANAGER'S MANAGER EARN MORE THAN 2300
+SQL> SELECT E.ENAME, M.SAL, MM.HIREDATE
+  2  FROM EMP E, EMP M, EMP MM
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.MGR = MM.EMPNO
+  5  AND MM.SAL > 2300;
+
+ENAME             SAL HIREDATE                                                                      
+---------- ---------- ---------                                                                     
+SMITH            3000 02-APR-81                                                                     
+ALLEN            2850 17-NOV-81                                                                     
+WARD             2850 17-NOV-81                                                                     
+MARTIN           2850 17-NOV-81                                                                     
+SCOTT            2975 17-NOV-81                                                                     
+TURNER           2850 17-NOV-81                                                                     
+ADAMS            3000 02-APR-81                                                                     
+JAMES            2850 17-NOV-81                                                                     
+FORD             2975 17-NOV-81                                                                     
+MILLER           2450 17-NOV-81                                                                     
+
+10 rows selected.
+
+SQL> -- 4 WAQTD EMP NAME AND MANAGER'S HIREDATE IF EMPLOYEE WAS HIRED BEFORE 1982 AND MANAGER'S MANAGER IS NOT EARNING ANY COMMISSION
+SQL> SELECT E.ENAME, M.HIREDATE
+  2  FROM EMP E, EMP M, EMP MM
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.MGR = MM.EMPNO
+  5  AND E.HIREDATE < '01-JAN-82'
+  6  AND MM.COMM IS NULL;
+
+ENAME      HIREDATE                                                                                 
+---------- ---------                                                                                
+SMITH      03-DEC-81                                                                                
+ALLEN      01-MAY-81                                                                                
+WARD       01-MAY-81                                                                                
+MARTIN     01-MAY-81                                                                                
+TURNER     01-MAY-81                                                                                
+JAMES      01-MAY-81                                                                                
+FORD       02-APR-81                                                                                
+
+7 rows selected.
+
+SQL> -- 5 WAQTD EMP NAME & HIS DEPT NAME AND MANAGER'S NAME & HIS DNAME AND MANAGER'S MANAGER NAME & HIS DNAME WHERE MANAGER'S MANAGER EARNS MORE THAN MANAGER SALARY
+SQL> SELECT E.ENAME, D1.DNAME, M.ENAME, D2.DNAME, MM.ENAME, D3.DNAME
+  2  FROM EMP E, DEPT D1, EMP M, DEPT D2, EMP MM, DEPT D3
+  3  WHERE E.DEPTNO = D1.DEPTNO
+  4  AND E.MGR = M.EMPNO
+  5  AND M.DEPTNO = D2.DEPTNO
+  6  AND M.MGR = MM.EMPNO
+  7  AND MM.DEPTNO = D3.DEPTNO
+  8  AND MM.SAL > M.SAL;
+
+ENAME      DNAME          ENAME      DNAME          ENAME      DNAME                                
+---------- -------------- ---------- -------------- ---------- --------------                       
+ALLEN      SALES          BLAKE      SALES          KING       ACCOUNTING                           
+WARD       SALES          BLAKE      SALES          KING       ACCOUNTING                           
+MARTIN     SALES          BLAKE      SALES          KING       ACCOUNTING                           
+SCOTT      RESEARCH       JONES      RESEARCH       KING       ACCOUNTING                           
+TURNER     SALES          BLAKE      SALES          KING       ACCOUNTING                           
+JAMES      SALES          BLAKE      SALES          KING       ACCOUNTING                           
+FORD       RESEARCH       JONES      RESEARCH       KING       ACCOUNTING                           
+MILLER     ACCOUNTING     CLARK      ACCOUNTING     KING       ACCOUNTING                           
+
+8 rows selected.
+
+SQL> SPOOL OFF;

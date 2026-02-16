@@ -1,0 +1,12 @@
+import java.util.*;
+class linkedlist 
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		LinkedList<String> a = new LinkedList<>();
+		a.add("1234");
+		a.add("abijith");
+		System.out.println(a);
+	}
+}

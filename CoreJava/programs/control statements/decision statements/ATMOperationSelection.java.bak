@@ -1,0 +1,33 @@
+import java.util.Scanner;
+class ATMOperationSelection 
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1.Withdraw \n 2.Deposit \n 3.Balance Enquiry \n 4.Exit : ");
+		int option = sc.nextInt();
+		System.out.println("Enter your bank balance : ");
+		int balance = sc.nextInt();
+		int wa,da,be,e;
+		switch (option)
+		{
+		case 1:
+			System.out.println("Enter Amount to Withdraw : ");
+		wa = sc.nextInt();
+		balance -= wa;
+		System.out.println("Enter new balance is " + balance);
+		break;
+		case 2:
+			System.out.println("Enter Amount to Deposit : ");
+		da = sc.nextInt();
+		balance += da;
+		System.out.println("Enter new balance is " + balance);
+		break;
+		case 3:
+		System.out.println("Your account balance is " + balance);
+		break;
+		case 4:
+			break;
+		}
+	}
+}

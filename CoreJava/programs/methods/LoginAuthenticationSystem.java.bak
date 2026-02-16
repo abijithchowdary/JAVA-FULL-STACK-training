@@ -1,0 +1,19 @@
+import java.util.Scanner;
+class  LoginAuthenticationSystem
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the User name : ");
+		String un = sc.nextLine();
+		System.out.print("Enter the Password : ");
+		String pass = sc.nextLine();
+		System.out.println(m1(un,pass));
+	}
+	public static String m1(String un,String Pass){
+		if(un.equals("abijith") && pass.equals("abijith123")){
+		return "login Sucessful";
+		}else
+			return "username or password is wrong";
+	}
+}

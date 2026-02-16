@@ -1,0 +1,9 @@
+class q3 
+{
+	public static void main(String[] args) 
+	{
+		int CartValue = 284;
+		String Result = ((CartValue >= 499)?"Free Delivery":"Delivery charge will be added");
+		System.out.println(Result);
+	}
+}

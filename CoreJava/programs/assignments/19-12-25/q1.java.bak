@@ -1,0 +1,9 @@
+class q1 
+{
+	public static void main(String[] args) 
+	{
+		int Stock = -200;
+		String Result = ((Stock > 0)?"Stock is avaliable":"Stock is not avaliable");
+		System.out.println(Result);
+	}
+}

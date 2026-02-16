@@ -1,0 +1,15 @@
+import java.util.Scanner;
+class readingAlphabet 
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the number : ");
+		int num = sc.nextInt();
+		int start = 65;
+		for(char i=1;i<num;i++){
+			start++;
+		}
+		System.out.println((char)start);
+	}
+}

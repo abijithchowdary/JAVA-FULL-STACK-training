@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+class  Discount
+{
+	public static void main(String[] args) 
+	{
+		int nqty = 0;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the Quantity you are purchasing : ");
+		int qty = sc.nextInt();
+		System.out.print("Enter the price of the item you're purchasing : ");
+		int price = sc.nextInt();
+		int totalPrice = (qty * price);
+		System.out.println("You're total price is " + totalPrice);
+		if(totalPrice > 1000){
+		System.out.println("Youre Eligible for discount");
+		nqty = (totalPrice - (totalPrice/10));
+		System.out.println("You're new total is " + nqty);
+		}
+		
+	}
+}

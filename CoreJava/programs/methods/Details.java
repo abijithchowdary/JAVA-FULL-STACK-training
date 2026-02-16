@@ -1,0 +1,19 @@
+import java.util.Scanner;
+class Details 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println(m1());
+	}
+	public static String m1(){
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter your name : ");
+		String Name = sc.nextLine();
+		System.out.print("Enter your age : ");
+		int Age = sc.nextInt();
+		System.out.print("Enter your ContactNumber : ");
+		long ContactNumber = sc.nextLong();
+		return "name : " + Name + ", age : " + Age + ", ContactNumber : " + ContactNumber;
+		
+	}
+}

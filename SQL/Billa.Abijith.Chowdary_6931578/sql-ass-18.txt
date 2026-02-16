@@ -1,0 +1,254 @@
+SQL> -- 1 WAQTD NAME OF THE EMPLOYEES WHO ARE HAVING ATLEAST 3 REPORTINGS
+SQL> SELECT M.ENAME
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  GROUP BY M.ENAME
+  5  HAVING COUNT(*) >= 3;
+
+ENAME                                                                                               
+----------                                                                                          
+BLAKE                                                                                               
+KING                                                                                                
+
+SQL> -- 2 WAQTD NAME OF THE DEPARTMENT IN WHICH THERE ARE ATLEAST 3 EMPLOYEES WHOS NAME HAS A CHAR 'A' IN IT
+SQL> SELECT D.DNAME
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO
+  4  AND E.ENAME LIKE '%A%'
+  5  GROUP BY D.DNAME
+  6  HAVING COUNT(*) >= 3;
+
+DNAME                                                                                               
+--------------                                                                                      
+SALES                                                                                               
+
+SQL> -- 3 WAQTD NUMBER OF EMPLOYEES REPORTING TO KING
+SQL> SELECT COUNT(*)
+  2  FROM EMP E, EMP M
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.ENAME = 'KING';
+
+  COUNT(*)                                                                                          
+----------                                                                                          
+         3                                                                                          
+
+SQL> -- 4 WAQTD NAME OF THE DEPARTMENT IN WHICH SMITH'S MANAGER IS WORKING
+SQL> SELECT D.DNAME
+  2  FROM EMP E, EMP M, DEPT D
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.DEPTNO = D.DEPTNO
+  5  AND E.ENAME = 'SMITH';
+
+DNAME                                                                                               
+--------------                                                                                      
+RESEARCH                                                                                            
+
+SQL> -- 5 WAQTD NUMBER OF EMPLOYEES ARE REPORTING TO BLAKES MANAGER
+SQL> SELECT COUNT(*)
+  2  FROM EMP E, EMP M, EMP MM
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.MGR = MM.EMPNO
+  5  AND M.ENAME = 'BLAKE';
+
+  COUNT(*)                                                                                          
+----------                                                                                          
+         5                                                                                          
+
+SQL> -- 6 WAQTD NAME OF THE EMPLOYEE ALONG WITH HIS MANAGER ONLY IF MANAGER WORKING IN SALES DEPARTMENT
+SQL> SELECT E.ENAME, M.ENAME
+  2  FROM EMP E, EMP M, DEPT D
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.DEPTNO = D.DEPTNO
+  5  AND D.DNAME = 'SALES';
+
+ENAME      ENAME                                                                                    
+---------- ----------                                                                               
+ALLEN      BLAKE                                                                                    
+WARD       BLAKE                                                                                    
+MARTIN     BLAKE                                                                                    
+TURNER     BLAKE                                                                                    
+JAMES      BLAKE                                                                                    
+
+SQL> -- 7 WAQTD DNAME AND AVERAGE SALARY FOR EACH DEPARTMENT EXCLUDING DEPT 20
+SQL> SELECT D.DNAME, AVG(E.SAL)
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO = D.DEPTNO
+  4  AND D.DEPTNO <> 20
+  5  GROUP BY D.DNAME;
+
+DNAME          AVG(E.SAL)                                                                           
+-------------- ----------                                                                           
+ACCOUNTING     2916.66667                                                                           
+SALES          1566.66667                                                                           
+
+SQL> -- 8 DISPLAY NAME OF THE EMPLOYEES REPORTING TO CLERK'S MANAGER'S MANAGER
+SQL> SELECT E.ENAME
+  2  FROM EMP E, EMP C, EMP M, EMP MM
+  3  WHERE C.JOB = 'CLERK'
+  4  AND C.MGR = M.EMPNO
+  5  AND M.MGR = MM.EMPNO
+  6  AND E.MGR = MM.EMPNO;
+
+ENAME                                                                                               
+----------                                                                                          
+JONES                                                                                               
+JONES                                                                                               
+BLAKE                                                                                               
+BLAKE                                                                                               
+CLARK                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+SCOTT                                                                                               
+FORD                                                                                                
+FORD                                                                                                
+
+10 rows selected.
+
+SQL> -- 9 WAQTD NAME OF EMP , HIS DNAME , HIS MANAGER NAME , HIS DNAME ONLY IF EMPLOYEES MANAGER'S MANAGER WORKS IN ACCOUNTING DEPARTMENT
+SQL> SELECT E.ENAME, D1.DNAME, M.ENAME, D2.DNAME
+  2  FROM EMP E, EMP M, EMP MM, DEPT D1, DEPT D2, DEPT D3
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.MGR = MM.EMPNO
+  5  AND E.DEPTNO = D1.DEPTNO
+  6  AND M.DEPTNO = D2.DEPTNO
+  7  AND MM.DEPTNO = D3.DEPTNO
+  8  AND D3.DNAME = 'ACCOUNTING';
+
+ENAME      DNAME          ENAME      DNAME                                                          
+---------- -------------- ---------- --------------                                                 
+ALLEN      SALES          BLAKE      SALES                                                          
+WARD       SALES          BLAKE      SALES                                                          
+MARTIN     SALES          BLAKE      SALES                                                          
+SCOTT      RESEARCH       JONES      RESEARCH                                                       
+TURNER     SALES          BLAKE      SALES                                                          
+JAMES      SALES          BLAKE      SALES                                                          
+FORD       RESEARCH       JONES      RESEARCH                                                       
+MILLER     ACCOUNTING     CLARK      ACCOUNTING                                                     
+
+8 rows selected.
+
+SQL> -- 10 WAQTD DEPARTMENT NAME IN WHICH THERE ARE NO EMPLOYEES
+SQL> SELECT D.DNAME
+  2  FROM DEPT D LEFT JOIN EMP E
+  3  ON D.DEPTNO = E.DEPTNO
+  4  WHERE E.EMPNO IS NULL;
+
+DNAME                                                                                               
+--------------                                                                                      
+OPERATIONS                                                                                          
+
+SQL> -- 11 WAQTD NAME OF EMPLOYEE AND HIS MANAGER WITH HIS MANAGER ALONG WITH THEIR DEPARTMENT NAMES IF EMPLOYEE GETS LESS SALARY THAN MANAGER'S MANAGER
+SQL> SELECT E.ENAME, D1.DNAME, M.ENAME, D2.DNAME
+  2  FROM EMP E, EMP M, EMP MM, DEPT D1, DEPT D2
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.MGR = MM.EMPNO
+  5  AND E.DEPTNO = D1.DEPTNO
+  6  AND M.DEPTNO = D2.DEPTNO
+  7  AND E.SAL < MM.SAL;
+
+ENAME      DNAME          ENAME      DNAME                                                          
+---------- -------------- ---------- --------------                                                 
+SMITH      RESEARCH       FORD       RESEARCH                                                       
+ALLEN      SALES          BLAKE      SALES                                                          
+WARD       SALES          BLAKE      SALES                                                          
+MARTIN     SALES          BLAKE      SALES                                                          
+SCOTT      RESEARCH       JONES      RESEARCH                                                       
+TURNER     SALES          BLAKE      SALES                                                          
+ADAMS      RESEARCH       SCOTT      RESEARCH                                                       
+JAMES      SALES          BLAKE      SALES                                                          
+FORD       RESEARCH       JONES      RESEARCH                                                       
+MILLER     ACCOUNTING     CLARK      ACCOUNTING                                                     
+
+10 rows selected.
+
+SQL> -- 12 WAQTD NAMES OF EMPLOYEES INDIRECTLY REPORTING TO KING
+SQL> SELECT E.ENAME
+  2  FROM EMP E, EMP M, EMP K
+  3  WHERE E.MGR = M.EMPNO
+  4  AND M.MGR = K.EMPNO
+  5  AND K.ENAME = 'KING';
+
+ENAME                                                                                               
+----------                                                                                          
+ALLEN                                                                                               
+WARD                                                                                                
+MARTIN                                                                                              
+SCOTT                                                                                               
+TURNER                                                                                              
+JAMES                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+8 rows selected.
+
+SQL> -- 13 WAQTD NAME OF THE EMPLOYEE GETTING 8TH MIN SALARY
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE SAL = (SELECT MIN(SAL)
+  4  FROM EMP
+  5  WHERE SAL > (SELECT MIN(SAL)
+  6  FROM EMP
+  7  WHERE SAL > (SELECT MIN(SAL)
+  8  FROM EMP
+  9  WHERE SAL > (SELECT MIN(SAL)
+ 10  FROM EMP
+ 11  WHERE SAL > (SELECT MIN(SAL)
+ 12  FROM EMP
+ 13  WHERE SAL > (SELECT MIN(SAL)
+ 14  FROM EMP
+ 15  WHERE SAL > (SELECT MIN(SAL)
+ 16  FROM EMP
+ 17  WHERE SAL > (SELECT MIN(SAL)
+ 18  FROM EMP)))))))));
+FROM EMP)))))))))
+                *
+ERROR at line 18:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> -- 13 WAQTD NAME OF THE EMPLOYEE GETTING 8TH MIN SALARY
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE SAL = (SELECT MIN(SAL)
+  4  FROM EMP
+  5  WHERE SAL > (SELECT MIN(SAL)
+  6  FROM EMP
+  7  WHERE SAL > (SELECT MIN(SAL)
+  8  FROM EMP
+  9  WHERE SAL > (SELECT MIN(SAL)
+ 10  FROM EMP
+ 11  WHERE SAL > (SELECT MIN(SAL)
+ 12  FROM EMP
+ 13  WHERE SAL > (SELECT MIN(SAL)
+ 14  FROM EMP
+ 15  WHERE SAL > (SELECT MIN(SAL)
+ 16  FROM EMP
+ 17  WHERE SAL > (SELECT MIN(SAL)
+ 18  FROM EMP))))))));
+
+ENAME                                                                                               
+----------                                                                                          
+CLARK                                                                                               
+
+SQL> -- 14 WAQTD NAME OF THE EMPLOYEE WHO WAS HIRED AFTER 6 EMPLOYEES
+SQL> SELECT ENAME
+  2  FROM EMP E1
+  3  WHERE 6 = (SELECT COUNT(*)
+  4  FROM EMP E2
+  5  WHERE E2.HIREDATE < E1.HIREDATE);
+
+ENAME                                                                                               
+----------                                                                                          
+TURNER                                                                                              
+
+SQL> -- 15 WAQTD DNAME , ENAME OF THE EMPLOYEES REPORTING TO MARTIN ONLY IF EMPLOYEE WORKS IN ACCOUNTING OR SALES DEPT
+SQL> SELECT D.DNAME, E.ENAME
+  2  FROM EMP E, EMP M, DEPT D
+  3  WHERE E.MGR = M.EMPNO
+  4  AND E.DEPTNO = D.DEPTNO
+  5  AND M.ENAME = 'MARTIN'
+  6  AND D.DNAME IN ('ACCOUNTING','SALES');
+
+no rows selected
+
+SQL> SPOOL OFF
