@@ -1,9 +1,0 @@
-class  AlpOrNot
-{
-	public static void main(String[] args) 
-	{
-		char a ='1';
-		String res = ((a>='A' && a<='Z') || (a>='a' && a<='z'))?"alphabet" : "number";
-		System.out.println(res);
-	}
-}
