@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC
+    "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+    <bean id="productService1" class="com.capg.java.java.ProductServiceImpl">
+     
+        <constructor-arg vaue = "MacAirM12021" />  
+  
+    </bean>
+    
+    <bean id="productService2" class="com.springcore.ProductServiceImpl">
+          
+            <property name="product" value="MacProM12021" />
+            
+    </bean>
+    
+</beans>

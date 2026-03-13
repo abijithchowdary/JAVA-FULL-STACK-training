@@ -24,10 +24,9 @@ public class FindingTwoNumbersInAArrayThatAddToATarget {
 		for(int i=0;i<a.length;i++) {
 			for(int j = i+1;j<a.length;j++) {
 				if(a[i] + a[j] == tn) {
-					if(a[i] != a[j]) {
 					System.out.println("The numbers are :" + a[i] + ", " + a[j]);
 					found = true;
-				}}
+				}
 			}
 		}
 		if(!found) {

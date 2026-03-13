@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC
+    "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+ 
+    <bean id="e1" class="com.springcore.EmployeeServiceImpl">
+       
+       <constructor-org value = "1" type ="int" />
+       <constructor-org value = "Billa" />
+       <constructor-org value = "Developer" />
+       
+    </bean>
+
+
+    <bean id="e2" class="com.springcore.EmployeeServiceImpl">
+            
+            <property name = "id" value = "2" />
+            <property name = "name" value = "BAC" />
+            <property name = "designation" value = "Logistics" />
+    </bean>
+    
+    
+    <bean id="e3" class="com.springcore.EmployeeServiceImpl">
+    
+            <property name = "id" value = "3" />
+            <property name= "name" value = "Abijith Chowdary" />
+            <property name = "designation" value="Intern" />
+            
+    </bean>
+    
+</beans>
