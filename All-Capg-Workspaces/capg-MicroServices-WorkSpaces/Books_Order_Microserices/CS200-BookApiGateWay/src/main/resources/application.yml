@@ -1,0 +1,26 @@
+server:
+  port: 8094
+
+spring:
+  application:
+    name: CS200-BookApiGateWay
+  cloud:
+    gateway:
+      routes:
+        - id: book-service
+          uri: lb://CS01-BookService
+          predicates:
+            - Path=/book/**
+
+        - id: order-service
+          uri: lb://CS02-OrderService
+          predicates:
+            - Path=/order/**					
+eureka:
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8700/eureka
+  instance:
+    hostname: localhost
