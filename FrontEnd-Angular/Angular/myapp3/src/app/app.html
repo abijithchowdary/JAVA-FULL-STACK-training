@@ -1,0 +1,10 @@
+<div class = "App">
+  @for(laptop of laptops; track laptop.id){
+    <p>{{laptop.brand}}</p>
+    <p>{{laptop.model}}</p>
+    <p> Price: {{laptop.price}}</p>
+  }
+</div>
+
+<app-laptop-details [laptops]="laptops" [object1]="obj1" (objchange)="handleUpdate($event)"></app-laptop-details>
+<p> user in app.html {{obj1.id}} {{obj1.brand}} {{obj1.price}}</p>

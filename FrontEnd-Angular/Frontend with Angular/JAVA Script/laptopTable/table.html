@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        var laptops = [
+            {id:101, brand:"HP",model:"Pavillion",price:"50000",size:15},
+            {id:102, brand:"Dell",model:"G15",price:"80000"}
+        ]
+
+    </script>
+
+    <button onclick="tableadd()">Show table</button>
+
+    <table border="2px">
+        <thead>
+            <th>id</th>
+            <th>brand</th>
+            <th>model</th>
+            <th>price</th>
+            <th>size</th>
+        </thead>
+        <tbody name = "laptops" id = "laptops" >
+
+        </tbody>
+    </table>
+
+    <script>
+        el2 = document.getElementById("laptops")
+
+        function tableadd(){
+            for(let row of laptops){
+                let datarow = document.createElement('tr')
+                datarow.innerHTML = "<td>"+row.id+"</td>"+"<td>"+row.brand+"</td>"+"<td>"+row.model+"</td>"+"<td>"+row.price+"</td>"+"<td>"+row.size+"</td>"
+
+                insertRow 
+                el2.appendChild(datarow)
+            }
+        }
+
+    </script>
+    
+</body>
+</html>

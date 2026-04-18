@@ -1,0 +1,8 @@
+@import url('./heading.css');
+p{
+    background-color: black;
+    color: yellowgreen;
+    text-align: center;
+    font-size: xx-large;
+}
+

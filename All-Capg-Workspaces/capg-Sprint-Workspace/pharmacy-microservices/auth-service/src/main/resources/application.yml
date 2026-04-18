@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: auth-service
+
+  # Graceful shutdown timeout configuration.
+  # Spring will wait up to this duration for shutdown phases to complete.
+  lifecycle:
+    timeout-per-shutdown-phase: 10s
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/auth_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USER:root}
+    password: ${DB_PASS:Tapan282@}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # -------------------------------------------------------------------
+  # Email (SMTP) configuration used by spring-boot-starter-mail.
+  #
+  # IMPORTANT:
+  # - Replace the placeholders with real values (or set env vars).
+  # - For Gmail, you typically need an "App Password" (not your normal password).
+  # -------------------------------------------------------------------
+  mail:
+    host: ${SMTP_HOST:smtp.gmail.com}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:codesinfinite328@gmail.com}
+    password: ${SMTP_PASSWORD:regs ntwq qvxb mqnh}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 9091
+  # Graceful shutdown makes Spring stop accepting requests first,
+  # then gives in-flight requests/timeouts a chance to finish.
+  shutdown: graceful
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
+  instance:
+    prefer-ip-address: false
+
+jwt:
+  secret: ${JWT_SECRET:pharmacy_super_secret_key_for_hs256_min_32chars}
+  expiration: 86400000
+
+# -------------------------------------------------------------------
+# Monitoring (Actuator + Micrometer Prometheus)
+# -------------------------------------------------------------------
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true

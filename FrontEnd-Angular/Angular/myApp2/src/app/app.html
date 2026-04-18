@@ -1,0 +1,18 @@
+<p>Hello Billa</p>
+
+<p>{{name}}</p>
+<p>{{age}}</p>
+
+<button (click)="changeName()">click</button>
+<app-user-details [name]="name" [age]="age">
+  <p>This is child</p>
+</app-user-details>
+
+<div class = "all-users">
+  @for(user of users; track user.name){
+    
+    <app-user-details name= {{user.name}} [age]="user.age" address={{user.address}}  gender={{user.gender}}></app-user-details>
+
+  }
+</div>
+<router-outlet />

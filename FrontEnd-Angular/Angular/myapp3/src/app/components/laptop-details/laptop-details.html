@@ -1,0 +1,12 @@
+<p>laptop-details works!</p>
+<div class = "Container">
+    @for(laptop of laptops ; track laptop.id){
+        <div>
+        <p>{{laptop.brand}}</p>
+        <p>{{laptop.model}}</p>
+        <p> Price: {{laptop.price}}</p>
+        </div>
+    }
+</div>
+<h3>{{object1.brand}} {{object1.price}}</h3>
+<button (click)="updateId(111)">change ID</button>

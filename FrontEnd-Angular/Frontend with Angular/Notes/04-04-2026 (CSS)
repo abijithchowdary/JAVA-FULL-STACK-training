@@ -1,0 +1,110 @@
+CSS - Cascading Style Sheets
+
+Ways of applying CSS to a page:-
+- Inline (through style attribute)
+    style - global as well as core attribute
+            style="background-color: blue ; color : white;"
+
+- Internal (in the same page using <style> tag inside the head tag (prefered))
+    selectors{
+        propertyName: value;
+        propertyName1 : value1;
+    }
+
+- External (using external file using <link> tag)
+
+
+Priority -> internal < inline ; internal-external -> depends, closer one to the body gets executed
+
+!important -> we use it to give internal a higher priority than inline
+
+frameworks of css - react strap, bootstrap, foundation
+
+Always keep style related things in head
+
+If we have to apply multiple css files in one html doc, instead of writing <link> multiple time, we use
+@import url() to import other css files in one file and then give this one in the html doc
+
+Selectors are used to target the html elements
+
+Types of CSS selectors:
+1. Simple Selectors - id, class, universal, tag/elements, group selectors
+2. Combinator Selectors
+3. Pseudo Class Selectors
+4. Pseudo Element Selectors
+5. Attribute Selectors
+
+- Simple Selectors:
+
+class selectors: applying style on a group of elements
+ .className{
+
+}
+
+id selectors ->  
+#id{
+
+}
+tag/element selector -> tag{
+
+}
+
+If we are applying id and class of the same element, id will get the first priority. But we can change it using !important
+
+Parent-Child Relationship
+I. Descendant selector()
+
+II. Child selector(>)
+
+
+Sibling Relationship (check sibling selector for the difference)
+I. Adjacent sibling selector(+)
+
+II. General sibling selector(~)
+
+- Pseudo element selector
+I. Hover: Used to target the state of an element
+ii. Active
+III. focus
+
+
+CSS Units
+
+- Types of CSS Units
+1. Absolute Units (Fixed)  -> Fixed in size → do not depend on screen or parent
+        px → Pixels (most common)
+        cm, mm, in → physical units (rare)
+        pt, pc → used in print
+
+2. Relative Units (Flexible / Responsive) -> Flexible → depend on parent element or screen size
+        (A) Percentage % Relative to parent element
+        (B) em Relative to parent font-size
+            Can compound (nested effect)
+            rem ✅
+            Relative to root (html) font-size   
+            More predictable than em
+
+
+CSS Box Model (Short Summary):
+
+Every HTML element is treated as a rectangular box made of 4 layers:
+
+Content
+The actual text/image inside the element.
+
+Padding
+Space between content and border.
+Increases inner spacing.
+
+Border
+Surrounds padding and content.
+Can have width, style, and color.
+
+Margin
+Space outside the border.
+Controls distance between elements.
+
+Important:
+Total size = content + padding + border + margin
+
+#give general definitions, simple explanations

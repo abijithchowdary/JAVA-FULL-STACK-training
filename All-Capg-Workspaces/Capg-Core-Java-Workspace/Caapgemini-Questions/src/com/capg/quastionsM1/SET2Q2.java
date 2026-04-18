@@ -6,6 +6,7 @@ public class SET2Q2 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
+		sc.nextLine();
 		MarksManager m = new MarksManager();
 		m.processCommand(sc,n);
 		

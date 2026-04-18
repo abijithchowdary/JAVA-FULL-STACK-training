@@ -1,0 +1,12 @@
+{
+  "laptops": [
+    { "id": 1, "brand": "Apple", "model": "MacBook Pro", "price": 1999 },
+    { "id": 2, "brand": "Dell", "model": "XPS 15", "price": 1799 },
+    { "id": 3, "brand": "Lenovo", "model": "ThinkPad X1", "price": 1599 }
+  ],
+  "billa": [
+    {"id" : 1 ,"name " : "ABHIT","KILL" : "2 Rats"},
+    {"id" : 2 ,"name " : "ABHHAR ","KILL" : "0 Rats"},
+    {"id" : 3 ,"name " : "ABHISHEK ","KILL" : "1 Rats"}
+  ]
+}

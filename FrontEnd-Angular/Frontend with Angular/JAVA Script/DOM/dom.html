@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptops Table</title>
+</head>
+<body>
+
+<script>
+    var laptops = [
+        {id:"1",brand:"HP",price:100000,quantity:8},
+        {id:"2",brand:"DELL",price:80000,quantity:5},
+        {id:"3",brand:"LENOVO",price:12000,quantity:7,model:"pavilion"}
+    ];
+</script>
+
+<button onclick="method1()">View Laptops appendChild</button>
+<button onclick="method2()">View Laptops innerHTML</button>
+<button onclick="method3()">View Laptops Dynamic</button>
+
+<br><br>
+
+<!-- TABLE 1 -->
+<table id="t1" style="display:none; border:2px solid blue;">
+    <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>
+</table>
+
+<br>
+
+<!-- TABLE 2 -->
+<table id="t2" style="display:none; border:2px solid blue;">
+    <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>
+</table>
+
+<br>
+
+<!-- TABLE 3 -->
+<table id="t3" style="display:none; border:2px solid blue;">
+    <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>
+</table>
+
+<script>
+/* ===================== METHOD 1 ===================== */
+function method1(){
+    var table = document.getElementById('t1');
+    table.style.display = 'inline';
+
+    // ✅ Clear old rows (keep header)
+    table.innerHTML = `
+    <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>`;
+
+    for(let laptop of laptops){
+        var {id,brand,price,quantity} = laptop;
+
+        var tr = document.createElement('tr');
+
+        tr.insertCell().innerText = id;
+        tr.insertCell().innerText = brand;
+        tr.insertCell().innerText = price;
+        tr.insertCell().innerText = quantity;
+
+        let actionCell = tr.insertCell();
+
+        let likeBtn = document.createElement("button");
+        likeBtn.innerText = "Like";
+        likeBtn.onclick = () => tr.style.backgroundColor = "green";
+
+        let dislikeBtn = document.createElement("button");
+        dislikeBtn.innerText = "Dislike";
+        dislikeBtn.onclick = () => tr.style.backgroundColor = "red";
+
+        actionCell.appendChild(likeBtn);
+        actionCell.appendChild(dislikeBtn);
+
+        table.appendChild(tr);
+    }
+}
+
+/* ===================== METHOD 2 ===================== */
+function method2(){
+    var rows = ``;
+    var table = document.getElementById("t2");
+    table.style.display = 'inline';
+
+    for(let laptop of laptops){
+        var {id,brand,price,quantity} = laptop;
+
+        rows += `
+        <tr>
+            <td>${id}</td>
+            <td>${brand}</td>
+            <td>${price}</td>
+            <td>${quantity}</td>
+            <td>
+                <button onclick="likeRow(this)">Like 👍</button>
+                <button onclick="dislikeRow(this)">Dislike 👎</button>
+            </td>
+        </tr>`;
+    }
+
+    table.innerHTML += rows;
+}
+
+// helper functions
+function likeRow(btn){
+    btn.parentElement.parentElement.style.backgroundColor = "lightgreen";
+}
+
+function dislikeRow(btn){
+    btn.parentElement.parentElement.style.backgroundColor = "lightcoral";
+}
+
+/* ===================== METHOD 3 ===================== */
+function method3(){
+    let table = document.getElementById('t3');
+    table.style.display = 'inline';
+
+    table.innerHTML = `
+    <tr>
+        <th>ID</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>`;
+
+    for(let laptop of laptops){
+        var tr = document.createElement('tr');
+
+        tr.insertCell().innerText = laptop.id;
+        tr.insertCell().innerText = laptop.brand;
+        tr.insertCell().innerText = laptop.price;
+        tr.insertCell().innerText = laptop.quantity;
+
+        let actionCell = tr.insertCell();
+
+        let likeBtn = document.createElement("button");
+        likeBtn.innerText = "Like";
+        likeBtn.onclick = () => tr.style.backgroundColor = "green";
+
+        let dislikeBtn = document.createElement("button");
+        dislikeBtn.innerText = "Dislike";
+        dislikeBtn.onclick = () => tr.style.backgroundColor = "red";
+
+        actionCell.appendChild(likeBtn);
+        actionCell.appendChild(dislikeBtn);
+
+        table.appendChild(tr);
+    }
+}
+</script>
+
+</body>
+</html>

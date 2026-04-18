@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var laptops = [
+
+            {id:"1",brand:"HP",price : 100000,quantity:8},
+            {id:"2",brand:"DELL",price : 80000,quantity:5},
+            {id:"3",brand:"LENOVO",price : 12000,quantity:7,model : "pavilion"}
+        ]
+    </script>
+    <button onclick="method1()">View Laptops appendChild</button>
+    <button onclick="method2()">View Laptops w innerHTML</button>
+    <button onclick="method3()">View Laptops Dynamic</button>
+    <br>
+    <table id="t1" style="display: none; border: 2px solid blue;" >
+        <th>ID</th>
+        <th>brand</th>
+        <th>Price</th>
+        <th>quanity</th>
+    </table>
+    <table id="t2" style="display: none; border: 2px solid blue;">
+        <th>ID</th>
+        <th>brand</th>
+        <th>Price</th>
+        <th>quanity</th>
+    </table>
+    <table id="t3" style="display: none; border: 2px solid blue;">
+        <th>ID</th>
+        <th>brand</th>
+        <th>Price</th>
+        <th>quanity</th>
+    </table>
+
+    <script>
+        function method1(){
+            var ele1 = document.getElementById('t1');
+            ele1.style.display = 'inline';
+            for(let laptop of laptops){
+                console.log(typeof(laptop),laptop)
+                var {id,brand,price,quantity} = {...laptop}
+                var tr = document.createElement('tr');
+                tr.insertCell().innerText = id;
+                tr.insertCell().innerText = brand;
+                tr.insertCell().innerText = price;
+                tr.insertCell().innerText = quantity;
+                console.log(tr);
+                ele1.appendChild(tr);
+            }
+            console.log(ele1)
+        }
+        function method2(){
+            var tr = ``;
+            var table2 = document.getElementById("t2");
+            table2.style.display = 'inline';
+            for(let laptop of laptops){
+                var {id,brand,price,quantity} = {...laptop}
+                tr += `
+                <tr>
+                    <td>${id}</td>
+                    <td>${brand}</td>
+                    <td>${price}</td>
+                    <td>${quantity}</td>
+                </tr>`;
+            }
+            table2.innerHTML = tr;
+        }
+        function method3(){
+            let t3 = document.getElementById('t3');
+            t3.style.display = 'inline';
+            for(let laptop of laptops){
+                var tr = document.createElement('tr');
+                for(let key of Object.keys(laptop)){
+                    tr.insertCell().innerText = laptop[key];
+                }
+                t3.appendChild(tr);
+            }
+        }
+    </script>
+    
+</body>
+</html>

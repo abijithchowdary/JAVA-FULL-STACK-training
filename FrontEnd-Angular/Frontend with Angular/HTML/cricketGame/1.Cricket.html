@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CricketGame</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <input type="text" placeholder="Enter a number" id="userInput">
+    <button onclick="startMatch()">Enter</button>
+    <p id="errorMSG">'ENTER FROM 1-6'</p>
+    <div>
+        <span>BAT</span>
+        <span id="userHit">0</span>
+        BALL
+        <span id="computerHit">0</span>
+
+        <span id="winStatus">Win status</span>
+    </div>
+    <ul id="ballHistory">Ball History</ul>
+
+    <button id="clear" onclick="clearHISTORY()">CLEAR</button>
+    <p id="winCnt">Win Count: 0</p>
+    <script src="./1.Cricket.js"></script>
+</body>
+</html> 

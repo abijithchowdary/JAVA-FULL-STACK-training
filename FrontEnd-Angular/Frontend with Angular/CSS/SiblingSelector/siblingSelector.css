@@ -1,0 +1,32 @@
+#parent > #sibling1 ~ #sibling2{
+    background-color: black;
+    color: rgb(210, 7, 95);
+    text-align: center;
+    font-size: xx-large;
+}
+
+/*Targetting the sibling 2 that comes after sibling 1 within the same parent*/
+
+#parent > #sibling1 ~ p{
+    background-color: black;
+    color: rgb(210, 7, 95);
+    text-align: center;
+    font-size: xx-large;
+}
+
+/*Targets all the siblings that come after sibling 1 within the same parent*/
+
+#parent > #sibling1 + p{
+    background-color: black;
+    color: rgb(210, 7, 95);
+    text-align: center;
+    font-size: xx-large;
+}
+/*Targets the immediate sibling that comes after sibling 1 within the same parent*/
+
+#parent > #sibling2 + #sibling3{
+    background-color: black;
+    color: rgb(210, 7, 95);
+    text-align: center;
+    font-size: xx-large;
+}

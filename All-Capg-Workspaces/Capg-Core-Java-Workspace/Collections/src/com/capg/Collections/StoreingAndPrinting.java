@@ -4,10 +4,10 @@ import java.util.*;
 public class StoreingAndPrinting {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		List<Student> list = new ArrayList<>();
+		List<Students> list = new ArrayList<>();
 		
 		//manual data adding
-		list.add(new Student(121,"Billa Abijith Chowdary",21,903272244L));
+		list.add(new Students(121,"Billa Abijith Chowdary",21,903272244L));
 		
 		//adding data by user input
 		System.out.println("Enter number of students:");
@@ -23,22 +23,22 @@ public class StoreingAndPrinting {
 		    long phone = sc.nextLong();
 		    sc.nextLine();       // buffer clear
 
-		list.add(new Student(id,name,age,phone));
+		list.add(new Students(id,name,age,phone));
 		}
 		
 		//printing the output by iterator 
-		Iterator<Student> itr = list.iterator();
+		Iterator<Students> itr = list.iterator();
 		while(itr.hasNext()) {
 			System.out.println(itr.next());
 		}
 	}
 }
-class Student{
+class Students{
 	int id;
 	String name;
 	int age;
 	long phone;
-	public Student(int id,String name,int age,long phone){
+	public Students(int id,String name,int age,long phone){
 		this.id = id;
 		this.name = name;
 		this.age = age;

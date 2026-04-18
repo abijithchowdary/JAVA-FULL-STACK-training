@@ -1,0 +1,46 @@
+*{
+    background-color: rgb(67, 4, 34);
+    font-family:'Times New Roman', Times, serif;
+
+}
+#para1{
+    background-color: black;
+    color: rgb(210, 7, 95);
+    text-align: center;
+    font-size: xx-large;
+}
+
+#para2{
+    background-color: rgb(227, 110, 167);
+    color: rgb(136, 4, 61);
+    text-align: center;
+    font-size: xx-large;
+}
+    
+#para3{
+    background-color: black;
+    color: rgb(210, 7, 95);
+    text-align: center;
+    font-size: xx-large;
+}
+
+#para4{
+    background-color: rgb(227, 110, 167);
+    color: rgb(136, 4, 61);
+    text-align: center;
+    font-size: xx-large;
+}
+
+.class1{
+    background-color: black;
+    color: rgb(210, 7, 95);
+    text-align: center;
+    font-size: xx-large;
+}
+
+.class2{
+    background-color: rgb(227, 110, 167);
+    color: rgb(136, 4, 61);
+    text-align: center;
+    font-size: xx-large;
+}

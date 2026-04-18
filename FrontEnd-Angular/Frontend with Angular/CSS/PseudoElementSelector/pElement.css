@@ -1,0 +1,42 @@
+#div1 > #btn{
+    height: 90px;
+    width: 120px;
+    background-color: deeppink;
+    color: white;
+    padding: 3px;
+    border: 2px solid purple;
+    border-radius:10% ;
+}
+
+#div1 > #btn:hover{
+       height: 120px;
+    width: 150px;
+    background-color: purple;
+    color: white;
+    padding: 3px;
+    border: 2px solid deeppink;
+    border-radius:10% ;
+
+}
+
+#anchor:action{
+    background-color: deeppink;
+    color: white;
+    padding: 3px;
+    border: 2px solid purple;
+    border-radius:10% ;
+}
+
+#anchor:link{
+    color: red;
+    font-weight: bold;
+}
+#anchor:visited {
+  color: blue;
+  font-weight: bold;
+}
+
+#anchor:hover {
+  color: hotpink;
+  font-style: italic;
+}

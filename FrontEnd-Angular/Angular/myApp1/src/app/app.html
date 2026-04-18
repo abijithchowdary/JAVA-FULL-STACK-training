@@ -1,0 +1,45 @@
+<h1>{{ title }}</h1>
+
+<h2>Signal Name: {{ name() }}</h2>
+
+<hr>
+
+<h2>User Details</h2>
+<p><b>Name:</b> {{ user.name }}</p>
+<p><b>Address:</b> {{ user.address }}</p>
+<p><b>Age:</b> {{ user.age }}</p>
+<p><b>Gender:</b> {{ user.gender }}</p>
+
+<h3>Phone Numbers:</h3>
+<ul>
+  <li *ngFor="let phone of user.phones">
+    {{ phone }}
+  </li>
+</ul>
+
+<hr>
+
+<h2>Users List</h2>
+
+<ul>
+  <li *ngFor="let u of users">
+    <p><b>Name:</b> {{ u.name }}</p>
+    <p><b>Address:</b> {{ u.address }}</p>
+    <p><b>Age:</b> {{ u.age }}</p>
+    <p><b>Gender:</b> {{ u.gender }}</p>
+    <input type="text" [disabled] = "u.edit">
+
+    @if (u.gender === 'male') {
+    <div>Eligible for posting</div>
+  } @else {
+    <div>Not Eligible for posting</div>
+  }
+    <hr>  
+  </li>
+</ul>
+
+@for(user of users ; track user.name){
+  <p>{{user.name}}</p>
+}
+
+

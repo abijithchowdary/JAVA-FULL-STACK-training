@@ -1,0 +1,52 @@
+Attributes -  extra information about tags
+
+Types of attributes:
+1. Global Attributes - can be used with any tag. Examples: id, class, tabIndex, draggable*, dropzone*, hidden, title
+- id: uniquely identifies an element
+- class: grouping certain elements
+- tabIndex: defines the order in which elements receive focus when navigating with the Tab key
+- draggable: specifies whether an element can be dragged. Set to true, it makes the element draggable; set to false, it disables  dragging. By default, images and links are draggable. This attribute supports both native drag-and-drop behavior and custom interactions via JavaScript.
+- hidden: hides an element on the webpage (present in DOM)
+
+2. Core Attributes - important attributes. Example: id, class, style
+
+3. Internalization Attributes - adapt web document for different language and alignment. dir(ltr, rtl, auto), lang 
+- lang: specifies the language
+- dir: alignment (ltr/rtl)
+
+4. Element Specific Attributes - belong to a certain tag. Examples: src, href, type, action, placeholder
+5. Custom Attributes - user-defined attributes. Can be defined using JavaScript. Syntax: data-myAttributeName
+
+* can be used through javascript
+
+Lists:
+1. Ordered List: tags: <ol>, <li> ; type: 1(default), A, a, I, i
+2. Unordered List: <ul>, <li> ; type: disc(default), circle, sqaure, none
+3. Description List: <dl>, <dt>, <dd>
+4. Nested Lists: list within a list. Add <ol>/<ul> inside <li>
+
+Tables: structured representation of data
+- Tags for Table:
+1. <table> </table> : Attributes: rules, cellspacing (space between the cells), cellpadding(space between the text in the cell,  and cell border), border, height, width
+2. <tr> </tr>
+3. <th> </th> : the text is center aligned and bold
+4. <td> </td> : Attributes: colspan, rowspan
+
+- Attributes for Table:
+1. border : introducing table border
+2. colspan : merging columns ; valued (td)
+3. rowspan : merging rows (td)
+
+Parts of the table HTML5
+Semantic + paired tags ; combining table rows
+- heading <thead>
+- body <tbody>
+- footer <tfoot>
+Attributes
+<colgroup>
+
+Forms: used to collect user data
+we can create a form without a form tag but we won't be able to submit that form
+through url data will be sent to server
+
+<name and value attribute>

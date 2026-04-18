@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: ecommerce-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "@Kussu321"
+      MYSQL_DATABASE: ecommerce
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p@Kussu321"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  login-service:
+    build:
+      context: ./OnlineShopping-Login-Service
+      dockerfile: Dockerfile
+    container_name: login-service
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ecommerce?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "@Kussu321"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: mySecretKey12345mySecretKey12345mySecretKey12345
+      JWT_EXPIRATION: 36000000
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  customer-service:
+    build:
+      context: ./OnlineShopping-CustomerService
+      dockerfile: Dockerfile
+    container_name: customer-service
+    ports:
+      - "9091:9091"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ecommerce?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "@Kussu321"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      LOGIN_SERVICE_URL: http://login-service:9090
+    depends_on:
+      mysql:
+        condition: service_healthy
+      login-service:
+        condition: service_started
+
+volumes:
+  mysql_data:

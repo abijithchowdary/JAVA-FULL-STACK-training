@@ -1,4 +1,4 @@
-package com.java.m1;
+package com.capg.Collections;
 
 
 import java.util.*;
@@ -10,7 +10,7 @@ public class HeavenHomes {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		Apartment a = new Apartment();
+		Apartments a = new Apartments();
 		
 		int n = sc.nextInt();
 		sc.nextLine();
@@ -30,7 +30,7 @@ public class HeavenHomes {
 	}
 }
 
-class Apartment{
+class Apartments{
 	private Map<String, Double> apartmentDetailsMap = new HashMap<>();
 	
 	public void addApartmentDetails(String apNo,double rent) {

@@ -1,0 +1,3 @@
+com\pharmacy\auth\event\UserRegisteredEvent.class
+com\pharmacy\auth\listener\UserRegisteredEventListener.class
+com\pharmacy\auth\service\EmailService.class

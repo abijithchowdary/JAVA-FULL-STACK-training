@@ -4,7 +4,7 @@ import java.util.*;
 public class ComparatorMethod {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		List<Student> list= new ArrayList<>();
+		List<Studentss> list= new ArrayList<>();
 		
 		System.out.println("Enter number of Students : ");
 		int n = sc.nextInt();
@@ -14,7 +14,7 @@ public class ComparatorMethod {
 			sc.nextLine();
 			String name = sc.nextLine();
 			int age = sc.nextInt();
-			list.add(new Student(id,name,age));
+			list.add(new Studentss(id,name,age));
 		}
 		
 		Collections.sort(list, new Comparing());
@@ -23,17 +23,17 @@ public class ComparatorMethod {
 		
 	}
 }
-class Comparing implements Comparator<Student>{
-	public int compare(Student s , Student a) {
+class Comparing implements Comparator<Studentss>{
+	public int compare(Studentss s , Studentss a) {
 		return s.name.compareTo(a.name);
 		
 	}
 }
-class Student{
+class Studentss{
 	int id;
 	String name;
 	int age;
-	Student(int id,String name,int age){
+	Studentss(int id,String name,int age){
 		this.id = id;
 		this.name = name;
 		this.age = age;

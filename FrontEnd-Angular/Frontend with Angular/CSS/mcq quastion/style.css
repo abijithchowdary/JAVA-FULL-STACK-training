@@ -1,0 +1,37 @@
+#header{
+    width: 100vw;
+    height: 65px;
+    text-align: center;
+    background-color: aqua;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+label{
+    margin-top: 50px;
+}
+
+#q1:checked ~ #q1a,#q2:checked ~ #q2a,#q3:checked ~ #q3a{
+    display: inline;
+}
+
+p{
+    background-color: green;
+    color: azure;
+    display: none;
+}
+
+footer{
+    width: 100vw;
+    height: 65px;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    color: rgb(246, 240, 240);
+    display: flex;
+    justify-content: center;
+}
+
+*{
+    margin: 0px;
+}

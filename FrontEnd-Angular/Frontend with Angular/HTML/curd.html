@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var fruits = ["apple","banana","grapes","oranges"]
+    </script>
+    <h2 onclick="method1()">populate fruit</h2>
+    <h2 onclick="method2()">Populate fruit with createElement</h2>
+
+    <select name = "fruits" id="fruits"> </select>
+    <select name="fruits2" id="fruits2"></select>
+
+    <script>
+        function method1(){
+
+            al = document.getElementById('fruits');
+            var str = "";
+            for(let fruit of fruits){
+                str += "<option>" + fruit + "</option>"
+            }
+            al.innerHTML = str;
+        }
+        function method2(){
+            var al2 = document.getElementById("fruits2");
+            for(let fruit of fruits){
+                var optionElement = document.createElement('option');
+                optionElement.innerText = fruit;
+                al2.append(optionElement)
+            }
+        }
+    </script>
+
+</body>
+</html>

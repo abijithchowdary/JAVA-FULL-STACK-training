@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      input {
+        display: none;
+      }
+
+      .correct,
+      .incorrect {
+        display: none;
+      }
+
+      #q1a:checked ~ .wrong1,
+      #q1b:checked ~ .wrong1 {
+        display: block;
+      }
+
+      #q1c:checked ~ .right1 {
+        display: block;
+      }
+
+      #q2a:checked ~ .wrong2,
+      #q2c:checked ~ .wrong2 {
+        display: block;
+      }
+
+      #q2b:checked ~ .right2 {
+        display: block;
+      }
+
+      #q3a:checked ~ .wrong3,
+      #q3c:checked ~ .wrong3 {
+        display: block;
+      }
+
+      #q3b:checked ~ .right3 {
+        display: block;
+      }
+    </style>
+  </head>
+  <body class="font-sans m-0 bg-gray-100">
+    <header class="bg-green-600 text-white text-center p-5">
+      <h1 class="text-3xl font-bold">Simple Quiz Website</h1>
+    </header>
+
+    <main class="p-5">
+      <section class="bg-white p-5 mb-5 rounded-lg shadow-sm">
+        <h2 class="text-xl font-semibold mb-4">
+          1. What is the capital of India?
+        </h2>
+
+        <input type="radio" name="q1" id="q1a" />
+        <label
+          for="q1a"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          Mumbai
+        </label>
+
+        <input type="radio" name="q1" id="q1b" />
+        <label
+          for="q1b"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          Chennai
+        </label>
+
+        <input type="radio" name="q1" id="q1c" />
+        <label
+          for="q1c"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          New Delhi
+        </label>
+
+        <p class="incorrect wrong1 bg-red-500 text-white p-3 rounded">
+          Incorrect
+        </p>
+
+        <p class="correct right1 bg-green-600 text-white p-3 rounded">
+          Correct
+        </p>
+      </section>
+
+      <section class="bg-white p-5 mb-5 rounded-lg shadow-sm">
+        <h2 class="text-xl font-semibold mb-4">
+          2. Which language is used for styling?
+        </h2>
+
+        <input type="radio" name="q2" id="q2a" />
+        <label
+          for="q2a"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          HTML
+        </label>
+
+        <input type="radio" name="q2" id="q2b" />
+        <label
+          for="q2b"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          CSS
+        </label>
+
+        <input type="radio" name="q2" id="q2c" />
+        <label
+          for="q2c"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          Java
+        </label>
+
+        <p class="incorrect wrong2 bg-red-500 text-white p-3 rounded">
+          Incorrect
+        </p>
+
+        <p class="correct right2 bg-green-600 text-white p-3 rounded">
+          Correct
+        </p>
+      </section>
+
+      <section class="bg-white p-5 mb-5 rounded-lg shadow-sm">
+        <h2 class="text-xl font-semibold mb-4">
+          3. Which is the best service-based company?
+        </h2>
+
+        <input type="radio" name="q3" id="q3a" />
+        <label
+          for="q3a"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          TCS
+        </label>
+
+        <input type="radio" name="q3" id="q3b" />
+        <label
+          for="q3b"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          Capgemini
+        </label>
+
+        <input type="radio" name="q3" id="q3c" />
+        <label
+          for="q3c"
+          class="block bg-gray-200 p-3 my-2 rounded cursor-pointer"
+        >
+          Accenture
+        </label>
+
+        <p class="incorrect wrong3 bg-red-500 text-white p-3 rounded">
+          Incorrect....You better switch!
+        </p>
+
+        <p class="correct right3 bg-green-600 text-white p-3 rounded">
+          Correct: East or West.....Capgemini is the best!
+        </p>
+        </section>
+    </main>
+
+    <footer class="bg-green-600 text-white text-center p-5">
+      <p>Quiz Footer</p>
+    </footer>
+  </body>
+</html>

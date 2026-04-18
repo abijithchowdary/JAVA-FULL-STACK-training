@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flipkart Clone Header</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      #parentContainer {
+        width: 100%;
+        height: 80px;
+      }
+
+      #childContainer1 {
+        width: 100%;
+        height: 50%;
+        background-color: #2874f0;
+        display: flex;
+        align-items: center;   
+        gap: 20px;
+        padding: 0 20px;
+      }
+
+      #childContainer2 {
+        width: 100%;
+        height: 50%;
+        background-color: #ebe837;
+        display: flex;
+        align-items: center;
+        padding-left: 20px;
+        gap: 20px;
+      }
+
+      #flipkartlogo img {
+        height: 30px;
+      }
+
+      #travellogo img {
+        height: 30px;
+        margin-right: 10px;
+      }
+
+      #location {
+        align-items: flex-end;
+        color: white;
+        font-size: 14px;
+      }
+
+      #location a {
+        color: #ffe500;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div id="parentContainer">
+
+        <div id="childContainer1">
+
+          <div id="flipkartlogo">
+            <img
+              src="https://rukminim2.flixcart.com/fk-p-flap/92/36/image/31f7e3af490c225f.png?q=60"
+              alt="Flipkart Logo"
+            />
+          </div>
+
+          <div id="travellogo">
+            <img
+              src="https://rukminim2.flixcart.com/fk-p-flap/58/44/image/7ab4040af860941d.png?q=60"
+              alt="Travel Logo"
+            />
+            <img
+              src="https://rukminim2.flixcart.com/fk-p-flap/72/36/image/5a9ff48eef96b876.png?q=60"
+              alt="Flipkart Plus"
+            />
+          </div>
+
+          <div id="location">
+            Location not set <br>
+            <a href="#">Select a delivery location</a>
+          </div>
+
+        </div>
+
+        <div id="childContainer2">
+          <div>Category 1</div>
+          <div>Category 2</div>
+          <div>Category 3</div>
+          <div>Category 4</div>
+        </div>
+
+      </div>
+    </header>
+  </body>
+</html>
