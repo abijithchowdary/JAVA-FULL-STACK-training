@@ -1,0 +1,35 @@
+<div class="list-container">
+
+  <div class="toolbar">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search by name..."
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+    />
+
+  </div>
+
+  <div class="grid">
+    <app-customer-details
+      *ngFor="let customer of pagedCustomers"
+      [customer]="customer">
+    </app-customer-details>
+  </div>
+
+  <ng-template #noResults>
+    <div class="no-results">No customers match your search.</div>
+  </ng-template>
+
+  <div class="pagination">
+    <button class="pag-btn" [disabled]="isFirstPage" (click)="prevPage()">
+      Previous
+    </button>
+    <span class="pag-info">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button class="pag-btn" [disabled]="isLastPage" (click)="nextPage()">
+      Next
+    </button>
+  </div>
+
+</div>

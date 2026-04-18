@@ -1,0 +1,27 @@
+<div class="card">
+    <div>
+      <div class="customer-name">{{ customer.name }}</div>
+      <div class="customer-id">{{ customer.id }}</div>
+    </div>
+
+  <div class="fields">
+    <span class="label">Address</span>
+    <span class="value" [title]="customer.address">{{ customer.address }}</span>
+
+    <span class="label">Email</span>
+    <span class="value">{{ customer.email }}</span>
+
+    <span class="label">Phone</span>
+    <span class="value">{{ customer.phone }}</span>
+
+    <span class="label">Date of Birth</span>
+    <span class="value">{{ formatDOB(customer.dateOfBirth) }}</span>
+
+    <span class="label">Gender</span>
+    <span class="value">
+    <span class="gender-badge">
+        {{ customer.gender }}
+      </span>
+    </span>
+  </div>
+</div>
