@@ -1,0 +1,33 @@
+<nav class="navbar glass-card">
+  <div class="nav-container">
+    <div class="logo">
+      <a routerLink="/">JobPortal</a>
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+      <li><a routerLink="/jobs" routerLinkActive="active">Browse Jobs</a></li>
+
+      <!-- Job Seeker Links -->
+      <ng-container *ngIf="isLoggedIn && role === 'JOB_SEEKER'">
+        <li><a routerLink="/applications/my-applications" routerLinkActive="active">My Applications</a></li>
+      </ng-container>
+
+      <!-- Recruiter Links -->
+      <ng-container *ngIf="isLoggedIn && role === 'RECRUITER'">
+        <li><a routerLink="/recruiter/my-jobs" routerLinkActive="active">My Posted Jobs</a></li>
+        <li><a routerLink="/recruiter/post-job" routerLinkActive="active">Post a Job</a></li>
+      </ng-container>
+
+    </ul>
+    <div class="auth-buttons">
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/auth/login" class="btn-secondary">Login</a>
+        <a routerLink="/auth/register" class="btn-primary">Register</a>
+      </ng-container>
+      <ng-container *ngIf="isLoggedIn">
+        <a routerLink="/profile" class="profile-link">Profile</a>
+        <button (click)="logout()" class="btn-secondary">Logout</button>
+      </ng-container>
+    </div>
+  </div>
+</nav>

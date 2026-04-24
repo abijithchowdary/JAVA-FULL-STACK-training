@@ -1,0 +1,93 @@
+<div class="job-detail-container" *ngIf="job && !loading">
+  <div class="glass-card main-card animate-fade-in">
+    <div class="header-section">
+      <div class="company-logo-lg">{{ job.companyName.charAt(0) }}</div>
+      <div class="title-section">
+        <h1>{{ job.title }}</h1>
+        <h2>{{ job.companyName }}</h2>
+        <div class="meta-tags">
+          <span class="badge">📍 {{ job.location }}</span>
+          <span class="badge">💼 {{ job.jobType }}</span>
+          <span class="badge">📈 {{ job.experienceYears }}+ Years Exp</span>
+          <span class="badge" *ngIf="job.salary">💰 ${{ job.salary | number }}</span>
+          <span class="badge">🕒 Posted: {{ job.postedAt | date:'mediumDate' }}</span>
+        </div>
+      </div>
+      <div class="action-section">
+        <button *ngIf="isSeeker" class="btn-primary btn-lg" (click)="openApplyModal()">Apply Now</button>
+        <div *ngIf="!isLoggedIn" class="login-prompt">
+          <a routerLink="/auth/login" [queryParams]="{ returnUrl: '/jobs/' + job.id }">Login to apply</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="description-section">
+      <h3>Job Description</h3>
+      <div class="description-content">
+        {{ job.description }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="loading">
+  <div class="spinner"></div>
+  <p>Loading job details...</p>
+</div>
+
+<div class="error-state" *ngIf="error">
+  <div class="glass-card">
+    <h3>Oops!</h3>
+    <p>{{ error }}</p>
+    <a routerLink="/jobs" class="btn-primary mt-4">Back to Jobs</a>
+  </div>
+</div>
+
+<!-- Apply Modal -->
+<div class="modal-backdrop" *ngIf="showApplyModal">
+  <div class="modal-card glass-card animate-fade-in">
+    <div class="modal-header">
+      <h3>Apply for {{ job?.title }}</h3>
+      <button class="close-btn" (click)="closeApplyModal()">×</button>
+    </div>
+    
+    <div class="modal-body" *ngIf="!applySuccess">
+      <div *ngIf="applyError" class="error-alert">{{ applyError }}</div>
+      
+      <form [formGroup]="applyForm" (ngSubmit)="submitApplication()">
+        <div class="form-group">
+          <label class="form-label">Cover Letter (Optional)</label>
+          <textarea class="form-control" formControlName="coverLetter" rows="4" placeholder="Why are you a good fit?"></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" formControlName="useExistingResume">
+            Use my existing profile resume
+          </label>
+        </div>
+
+        <div class="form-group" *ngIf="!applyForm.get('useExistingResume')?.value">
+          <label class="form-label">Upload Resume (PDF/DOC)</label>
+          <input type="file" class="form-control" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" (click)="closeApplyModal()">Cancel</button>
+          <button type="submit" class="btn-primary" [disabled]="applying">
+            <span *ngIf="applying">Submitting...</span>
+            <span *ngIf="!applying">Submit Application</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-body success-state" *ngIf="applySuccess">
+      <div class="success-icon">✅</div>
+      <h4>Application Submitted!</h4>
+      <p>Good luck with your application for {{ job?.title }}.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="profile-container">
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <div *ngIf="error" class="error-alert">
+    {{ error }}
+  </div>
+
+  <div class="glass-card animate-fade-in" *ngIf="profile && !loading">
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <img *ngIf="profile.profilePictureUrl" [src]="profile.profilePictureUrl" alt="Profile Picture">
+        <div *ngIf="!profile.profilePictureUrl" class="avatar-placeholder">
+          {{ profile.name.charAt(0) }}
+        </div>
+        
+        <label class="upload-btn pic-btn">
+          <input type="file" (change)="onPicSelected($event)" accept="image/*" hidden>
+          <span *ngIf="!uploadingPic">📷 Edit</span>
+          <span *ngIf="uploadingPic">⏳...</span>
+        </label>
+      </div>
+
+      <div class="profile-info">
+        <h2>{{ profile.name }}</h2>
+        <div class="role-badge">{{ profile.role.replace('_', ' ') }}</div>
+        
+        <div class="contact-info mt-4">
+          <p><strong>Email:</strong> {{ profile.email }}</p>
+          <p *ngIf="profile.phone"><strong>Phone:</strong> {{ profile.phone }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="profile-documents">
+      <h3>Documents</h3>
+      
+      <div class="document-card">
+        <div class="doc-info">
+          <h4>Resume</h4>
+          <p *ngIf="profile.resumeUrl" class="text-success">✅ Resume is uploaded</p>
+          <p *ngIf="!profile.resumeUrl" class="text-warning">⚠️ No resume uploaded</p>
+          
+          <div class="doc-actions mt-2">
+            <a *ngIf="profile.resumeUrl" [href]="profile.resumeUrl" target="_blank" class="btn-secondary btn-sm">View Resume</a>
+            
+            <label class="btn-primary btn-sm ml-2" style="cursor: pointer;">
+              <input type="file" (change)="onResumeSelected($event)" accept=".pdf,.doc,.docx" hidden>
+              <span *ngIf="!uploadingResume">{{ profile.resumeUrl ? 'Update' : 'Upload' }}</span>
+              <span *ngIf="uploadingResume">Uploading...</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

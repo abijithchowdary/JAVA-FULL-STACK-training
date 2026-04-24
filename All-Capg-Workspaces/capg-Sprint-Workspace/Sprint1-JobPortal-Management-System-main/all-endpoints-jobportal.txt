@@ -1,0 +1,726 @@
+CREATE DATABASE auth_db;
+CREATE DATABASE job_db;
+CREATE DATABASE application_db;
+CREATE DATABASE admin_db;
+```
+
+---
+
+## PHASE 1 — Auth Service Tests
+
+---
+
+**Test 1 — Register Job Seeker**
+```
+POST http://localhost:9090/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Seeker",
+  "email": "seeker@test.com",
+  "password": "password123",
+  "role": "JOB_SEEKER"
+}
+```
+Expected: `200` — `"Registration successful. Please login."`
+
+---
+
+**Test 2 — Register Recruiter**
+```
+POST http://localhost:9090/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Jane Recruiter",
+  "email": "recruiter@test.com",
+  "password": "password123",
+  "role": "RECRUITER"
+}
+```
+Expected: `200` — `"Registration successful. Please login."`
+
+---
+
+**Test 3 — Register Admin (should fail)**
+```
+POST http://localhost:9090/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Hacker",
+  "email": "hacker@test.com",
+  "password": "password123",
+  "role": "ADMIN"
+}
+```
+Expected: `400` — `"Admin registration is not allowed"`
+
+---
+
+**Test 4 — Register duplicate email (should fail)**
+```
+POST http://localhost:9090/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Seeker",
+  "email": "seeker@test.com",
+  "password": "password123",
+  "role": "JOB_SEEKER"
+}
+```
+Expected: `409` — `"Email already in use"`
+
+---
+
+**Test 5 — Register with short password (should fail)**
+```
+POST http://localhost:9090/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "email": "test@test.com",
+  "password": "123",
+  "role": "JOB_SEEKER"
+}
+```
+Expected: `400` — `"Password must be at least 8 characters"`
+
+---
+
+**Test 6 — Login Job Seeker**
+```
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "seeker@test.com",
+  "password": "password123"
+}
+```
+Expected: `200` — accessToken + refreshToken + role + userId
+
+Save the `accessToken` as `SEEKER_TOKEN` and `refreshToken` as `SEEKER_REFRESH`
+
+---
+
+**Test 7 — Login Recruiter**
+```
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "recruiter@test.com",
+  "password": "password123"
+}
+```
+Expected: `200` — accessToken + refreshToken
+
+Save as `RECRUITER_TOKEN` and `RECRUITER_REFRESH`
+
+---
+
+**Test 8 — Login Admin**
+```
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@jobportal.com",
+  "password": "your_admin_password"
+}
+```
+Expected: `200` — accessToken with `role: ADMIN`
+
+Save as `ADMIN_TOKEN`
+
+---
+
+**Test 9 — Login with wrong password (should fail)**
+```
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "seeker@test.com",
+  "password": "wrongpassword"
+}
+```
+Expected: `400` — `"Invalid credentials"`
+
+---
+
+**Test 10 — Login with wrong email (should fail)**
+```
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "nobody@test.com",
+  "password": "password123"
+}
+```
+Expected: `400` — `"Invalid credentials"` (same message — doesn't reveal which field is wrong)
+
+---
+
+**Test 11 — Get Profile**
+```
+GET http://localhost:9090/api/auth/profile
+Authorization: Bearer <SEEKER_TOKEN>
+```
+Expected: `200` — name, email, role, phone, status, profilePictureUrl null, resumeUrl null
+
+---
+
+**Test 12 — Upload Profile Picture**
+```
+PUT http://localhost:9090/api/auth/profile/picture
+Authorization: Bearer <SEEKER_TOKEN>
+Body: form-data
+  picture = [any JPG or PNG]
+```
+Expected: `200` — `{ "profilePictureUrl": "https://res.cloudinary.com/..." }`
+
+---
+
+**Test 13 — Upload Profile Picture wrong type (should fail)**
+```
+PUT http://localhost:9090/api/auth/profile/picture
+Authorization: Bearer <SEEKER_TOKEN>
+Body: form-data
+  picture = [any PDF file]
+```
+Expected: `400` — `"Only JPG and PNG images are allowed"`
+
+---
+
+**Test 14 — Upload Resume to Profile**
+```
+PUT http://localhost:9090/api/auth/profile/resume
+Authorization: Bearer <SEEKER_TOKEN>
+Body: form-data
+  resume = [any PDF]
+```
+Expected: `200` — `{ "resumeUrl": "https://res.cloudinary.com/..." }`
+
+Save the URL as `SAVED_RESUME_URL`
+
+---
+
+**Test 15 — Refresh Token**
+```
+POST http://localhost:9090/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "<SEEKER_REFRESH>"
+}
+```
+Expected: `200` — new accessToken + new refreshToken
+
+---
+
+**Test 16 — Logout**
+```
+POST http://localhost:9090/api/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "<SEEKER_REFRESH>"
+}
+```
+Expected: `200` — `"Logged out successfully"`
+
+---
+
+**Test 17 — Refresh after logout (should fail)**
+```
+POST http://localhost:9090/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "<SEEKER_REFRESH>"
+}
+```
+Expected: `404` — `"Invalid or expired refresh token"`
+
+Login again after this to get fresh tokens for remaining tests.
+
+---
+
+## PHASE 2 — Gateway Security Tests
+
+---
+
+**Test 18 — Access protected route without token (should fail)**
+```
+POST http://localhost:9090/api/jobs
+Content-Type: application/json
+
+{ "title": "Test" }
+```
+Expected: `401 Unauthorized`
+
+---
+
+**Test 19 — Access protected route with expired/invalid token (should fail)**
+```
+POST http://localhost:9090/api/jobs
+Authorization: Bearer invalidtokenhere
+```
+Expected: `401 Unauthorized`
+
+---
+
+**Test 20 — Access internal endpoint from outside (should fail)**
+```
+GET http://localhost:9090/api/internal/users
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `403 Forbidden` — gateway blocks all `/internal/` paths
+
+---
+
+## PHASE 3 — Job Service Tests
+
+---
+
+**Test 21 — Post a job as Recruiter**
+```
+POST http://localhost:9090/api/jobs
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "title": "Java Developer",
+  "companyName": "Tech Corp",
+  "location": "Bangalore",
+  "salary": 1000000,
+  "experienceYears": 2,
+  "jobType": "FULL_TIME",
+  "skillsRequired": "Java, Spring Boot, MySQL",
+  "description": "We are looking for a Java developer"
+}
+```
+Expected: `201` — job details with id
+
+Save `jobId` as `JOB_ID_1`
+
+---
+
+**Test 22 — Post another job (for more test data)**
+```
+POST http://localhost:9090/api/jobs
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "title": "React Developer",
+  "companyName": "Web Corp",
+  "location": "Hyderabad",
+  "salary": 800000,
+  "experienceYears": 1,
+  "jobType": "REMOTE",
+  "skillsRequired": "React, JavaScript, CSS",
+  "description": "Looking for a React developer"
+}
+```
+Expected: `201`
+
+Save as `JOB_ID_2`
+
+---
+
+**Test 23 — Post job as Job Seeker (should fail)**
+```
+POST http://localhost:9090/api/jobs
+Authorization: Bearer <SEEKER_TOKEN>
+Content-Type: application/json
+
+{
+  "title": "Test Job",
+  "companyName": "Test",
+  "location": "Test",
+  "jobType": "FULL_TIME",
+  "description": "Test"
+}
+```
+Expected: `403 Forbidden`
+
+---
+
+**Test 24 — Get all jobs (public, no token)**
+```
+GET http://localhost:9090/api/jobs
+```
+Expected: `200` — paginated list of jobs
+
+---
+
+**Test 25 — Get job by ID (public)**
+```
+GET http://localhost:9090/api/jobs/<JOB_ID_1>
+```
+Expected: `200` — job details
+
+---
+
+**Test 26 — Get non-existent job (should fail)**
+```
+GET http://localhost:9090/api/jobs/99999
+```
+Expected: `404` — `"Job not found"`
+
+---
+
+**Test 27 — Search jobs by keyword**
+```
+GET http://localhost:9090/api/jobs/search?title=Java
+```
+Expected: `200` — list containing Java Developer job
+
+---
+
+**Test 28 — Search jobs by location**
+```
+GET http://localhost:9090/api/jobs/search?location=Bangalore
+```
+Expected: `200` — list containing Bangalore jobs
+
+---
+
+**Test 29 — Get my jobs as Recruiter**
+```
+GET http://localhost:9090/api/jobs/my-jobs
+Authorization: Bearer <RECRUITER_TOKEN>
+```
+Expected: `200` — list of jobs posted by this recruiter
+
+---
+
+**Test 30 — Get my jobs as Job Seeker (should fail)**
+```
+GET http://localhost:9090/api/jobs/my-jobs
+Authorization: Bearer <SEEKER_TOKEN>
+```
+Expected: `403 Forbidden`
+
+---
+
+**Test 31 — Update own job**
+```
+PUT http://localhost:9090/api/jobs/<JOB_ID_1>
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "title": "Senior Java Developer",
+  "companyName": "Tech Corp",
+  "location": "Bangalore",
+  "salary": 1500000,
+  "experienceYears": 4,
+  "jobType": "FULL_TIME",
+  "skillsRequired": "Java, Spring Boot, Microservices",
+  "description": "Updated description"
+}
+```
+Expected: `200` — updated job details
+
+---
+
+**Test 32 — Delete own job**
+```
+DELETE http://localhost:9090/api/jobs/<JOB_ID_2>
+Authorization: Bearer <RECRUITER_TOKEN>
+```
+Expected: `204 No Content`
+
+---
+
+**Test 33 — Get deleted job (should fail)**
+```
+GET http://localhost:9090/api/jobs/<JOB_ID_2>
+```
+Expected: `404` — `"Job not found"`
+
+---
+
+## PHASE 4 — Application Service Tests
+
+Login seeker again to get fresh token before these tests.
+
+---
+
+**Test 34 — Apply using saved resume**
+```
+POST http://localhost:9090/api/applications
+Authorization: Bearer <SEEKER_TOKEN>
+Body: form-data
+
+jobId = <JOB_ID_1>
+coverLetter = I am very interested in this position
+useExistingResume = true
+existingResumeUrl = <SAVED_RESUME_URL>
+```
+Expected: `201` — application details with status APPLIED
+
+Save `applicationId` as `APP_ID_1`
+
+---
+
+**Test 35 — Apply using new resume upload**
+```
+POST http://localhost:9090/api/applications
+Authorization: Bearer <SEEKER_TOKEN>
+Body: form-data
+
+jobId = <JOB_ID_1>  ← same job, should fail (duplicate)
+useExistingResume = false
+resume = [PDF file]
+```
+Expected: `409 Conflict` — `"You have already applied for this job"`
+
+---
+
+**Test 36 — Apply to different job with new resume**
+
+First post a new job, then apply:
+```
+POST http://localhost:9090/api/applications
+Authorization: Bearer <SEEKER_TOKEN>
+Body: form-data
+
+jobId = <new_job_id>
+coverLetter = Interested in this role
+useExistingResume = false
+resume = [PDF file]
+```
+Expected: `201`
+
+---
+
+**Test 37 — Apply as Recruiter (should fail)**
+```
+POST http://localhost:9090/api/applications
+Authorization: Bearer <RECRUITER_TOKEN>
+Body: form-data
+
+jobId = <JOB_ID_1>
+useExistingResume = false
+resume = [PDF file]
+```
+Expected: `403 Forbidden`
+
+---
+
+**Test 38 — Get my applications as Seeker**
+```
+GET http://localhost:9090/api/applications/my-applications
+Authorization: Bearer <SEEKER_TOKEN>
+```
+Expected: `200` — list of seeker's applications
+
+---
+
+**Test 39 — Get application by ID as Seeker**
+```
+GET http://localhost:9090/api/applications/<APP_ID_1>
+Authorization: Bearer <SEEKER_TOKEN>
+```
+Expected: `200` — application details, `recruiterNote` should NOT be in response
+
+---
+
+**Test 40 — Get applicants for job as Recruiter**
+```
+GET http://localhost:9090/api/applications/job/<JOB_ID_1>
+Authorization: Bearer <RECRUITER_TOKEN>
+```
+Expected: `200` — list of applicants with `recruiterNote` field visible
+
+---
+
+**Test 41 — Update status APPLIED → UNDER_REVIEW**
+```
+PATCH http://localhost:9090/api/applications/<APP_ID_1>/status
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "newStatus": "UNDER_REVIEW",
+  "recruiterNote": "Good profile, will review shortly"
+}
+```
+Expected: `200` — updated status
+
+---
+
+**Test 42 — Update status UNDER_REVIEW → SHORTLISTED**
+```
+PATCH http://localhost:9090/api/applications/<APP_ID_1>/status
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "newStatus": "SHORTLISTED",
+  "recruiterNote": "Strong candidate"
+}
+```
+Expected: `200`
+
+---
+
+**Test 43 — Invalid status transition SHORTLISTED → APPLIED (should fail)**
+```
+PATCH http://localhost:9090/api/applications/<APP_ID_1>/status
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "newStatus": "APPLIED"
+}
+```
+Expected: `400` — invalid status transition message
+
+---
+
+**Test 44 — Update status SHORTLISTED → REJECTED**
+```
+PATCH http://localhost:9090/api/applications/<APP_ID_1>/status
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "newStatus": "REJECTED",
+  "recruiterNote": "Not a good fit at this time"
+}
+```
+Expected: `200`
+
+---
+
+**Test 45 — Update after REJECTED (should fail)**
+```
+PATCH http://localhost:9090/api/applications/<APP_ID_1>/status
+Authorization: Bearer <RECRUITER_TOKEN>
+Content-Type: application/json
+
+{
+  "newStatus": "UNDER_REVIEW"
+}
+```
+Expected: `400` — `"This application is already REJECTED. No further changes allowed."`
+
+---
+
+## PHASE 5 — Admin Service Tests
+
+---
+
+**Test 46 — Get all users as Admin**
+```
+GET http://localhost:9090/api/admin/users
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `200` — list of all registered users
+
+---
+
+**Test 47 — Get all users as non-Admin (should fail)**
+```
+GET http://localhost:9090/api/admin/users
+Authorization: Bearer <SEEKER_TOKEN>
+```
+Expected: `403 Forbidden`
+
+---
+
+**Test 48 — Get all jobs as Admin**
+```
+GET http://localhost:9090/api/admin/jobs
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `200` — list of ALL jobs including deleted ones
+
+---
+
+**Test 49 — Get platform report**
+```
+GET http://localhost:9090/api/admin/reports
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `200` — total users, total jobs, application stats breakdown
+
+---
+
+**Test 50 — Ban a user**
+```
+PUT http://localhost:9090/api/admin/users/<SEEKER_USER_ID>/ban
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `200` — `"User banned successfully"`
+
+---
+
+**Test 51 — Banned user tries to login (should fail)**
+```
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "seeker@test.com",
+  "password": "password123"
+}
+```
+Expected: `400` — `"Account suspended"`
+
+---
+
+**Test 52 — Unban user**
+```
+PUT http://localhost:9090/api/admin/users/<SEEKER_USER_ID>/unban
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `200` — `"User unbanned successfully"`
+
+---
+
+**Test 53 — Unbanned user can login again**
+```
+POST http://localhost:9090/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "seeker@test.com",
+  "password": "password123"
+}
+```
+Expected: `200` — tokens returned successfully
+
+---
+
+**Test 54 — Admin deletes a job**
+```
+DELETE http://localhost:9090/api/admin/jobs/<JOB_ID_1>
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `200` — `"Job deleted successfully"`
+
+---
+
+**Test 55 — Get audit logs**
+```
+GET http://localhost:9090/api/admin/audit-logs
+Authorization: Bearer <ADMIN_TOKEN>
+```
+Expected: `200` — list of all admin actions with timestamps
+
+---
+
+**Test 56 — Admin tries to ban themselves (should fail)**
+```
+PUT http://localhost:9090/api/admin/users/<ADMIN_USER_ID>/ban
+Authorization: Bearer <ADMIN_TOKEN>

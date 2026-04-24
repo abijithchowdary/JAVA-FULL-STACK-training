@@ -1,0 +1,26 @@
+<div class="glass-card job-card">
+  <div class="job-header">
+    <div class="company-logo">{{ job.companyName.charAt(0) }}</div>
+    <div class="job-title-wrapper">
+      <h3 class="job-title">{{ job.title }}</h3>
+      <p class="company-name">{{ job.companyName }}</p>
+    </div>
+  </div>
+
+  <div class="job-tags">
+    <span class="badge"><i class="icon">📍</i> {{ job.location }}</span>
+    <span class="badge"><i class="icon">💼</i> {{ job.jobType }}</span>
+    <span class="badge"><i class="icon">📈</i> {{ job.experienceYears }} Yrs</span>
+  </div>
+
+  <div class="job-footer">
+    <div class="posted-date" *ngIf="job.postedAt">
+      Posted: {{ job.postedAt | date:'mediumDate' }}
+    </div>
+    <div class="actions">
+      <a *ngIf="showApplyButton" [routerLink]="['/jobs', job.id]" class="btn-primary btn-sm">View Details</a>
+      <a *ngIf="showEditButton" [routerLink]="['/recruiter/edit-job', job.id]" class="btn-secondary btn-sm">Edit</a>
+      <a *ngIf="customActionLink" [routerLink]="customActionLink" class="btn-secondary btn-sm">{{ customActionText }}</a>
+    </div>
+  </div>
+</div>

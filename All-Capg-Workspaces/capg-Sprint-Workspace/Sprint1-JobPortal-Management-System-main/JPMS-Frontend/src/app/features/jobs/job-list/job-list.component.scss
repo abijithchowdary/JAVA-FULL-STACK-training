@@ -1,0 +1,55 @@
+.search-section {
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.search-section h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: var(--primary);
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.results-header {
+  margin-bottom: 1.5rem;
+}
+
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.loading-spinner, .no-results {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.page-info {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+}

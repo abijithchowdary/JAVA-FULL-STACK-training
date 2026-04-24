@@ -1,0 +1,51 @@
+<div class="job-list-container">
+  <div class="search-section glass-card animate-fade-in">
+    <h2>Find Your Dream Job</h2>
+    
+    <form [formGroup]="searchForm" class="search-form">
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <input type="text" class="form-control" formControlName="title" placeholder="Job Title or Keyword">
+        </div>
+        <div class="form-group flex-1">
+          <input type="text" class="form-control" formControlName="location" placeholder="Location">
+        </div>
+        <div class="form-group flex-1">
+          <select class="form-control" formControlName="jobType">
+            <option value="">Any Job Type</option>
+            <option value="FULL_TIME">Full Time</option>
+            <option value="PART_TIME">Part Time</option>
+            <option value="CONTRACT">Contract</option>
+            <option value="INTERNSHIP">Internship</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="results-section">
+    <div class="results-header">
+      <h3>{{ totalElements }} Jobs Found</h3>
+    </div>
+
+    <div *ngIf="loading" class="loading-spinner">
+      Loading jobs...
+    </div>
+
+    <div *ngIf="!loading && jobs.length === 0" class="no-results glass-card">
+      <p>No jobs found matching your criteria.</p>
+    </div>
+
+    <div class="jobs-grid" *ngIf="!loading">
+      <div *ngFor="let job of jobs" class="animate-fade-in" style="animation-delay: 0.1s;">
+        <app-job-card [job]="job"></app-job-card>
+      </div>
+    </div>
+
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button class="btn-secondary" (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>
+      <span class="page-info">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+      <button class="btn-secondary" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Next</button>
+    </div>
+  </div>
+</div>

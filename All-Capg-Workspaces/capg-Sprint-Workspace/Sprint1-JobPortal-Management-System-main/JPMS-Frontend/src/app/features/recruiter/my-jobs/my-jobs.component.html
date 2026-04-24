@@ -1,0 +1,36 @@
+<div class="my-jobs-container">
+  <div class="header-section glass-card animate-fade-in">
+    <div class="flex-between">
+      <h2>My Posted Jobs</h2>
+      <a routerLink="/recruiter/post-job" class="btn-primary">Post New Job</a>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading your jobs...</p>
+  </div>
+
+  <div *ngIf="!loading && jobs.length === 0" class="no-results glass-card animate-fade-in">
+    <h3>No Jobs Posted Yet</h3>
+    <p>You haven't posted any jobs. Create your first job posting to find great candidates!</p>
+    <a routerLink="/recruiter/post-job" class="btn-primary mt-4">Post a Job</a>
+  </div>
+
+  <div class="jobs-grid" *ngIf="!loading && jobs.length > 0">
+    <div *ngFor="let job of jobs" class="animate-fade-in">
+      <app-job-card 
+        [job]="job" 
+        [showApplyButton]="false"
+        customActionLink="/recruiter/job-applicants/{{ job.id }}"
+        customActionText="View Applicants">
+      </app-job-card>
+    </div>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="btn-secondary" (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>
+    <span class="page-info">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button class="btn-secondary" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Next</button>
+  </div>
+</div>

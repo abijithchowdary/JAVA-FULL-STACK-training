@@ -1,0 +1,56 @@
+<div class="applicants-container">
+  <div class="header-section glass-card animate-fade-in">
+    <div class="flex-between">
+      <div>
+        <h2>Applicants for Job #{{ jobId }}</h2>
+        <p class="subtitle">Review and update application statuses.</p>
+      </div>
+      <a routerLink="/recruiter/my-jobs" class="btn-secondary">Back to My Jobs</a>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading applicants...</p>
+  </div>
+
+  <div *ngIf="!loading && applicants.length === 0" class="no-results glass-card animate-fade-in">
+    <h3>No Applicants Yet</h3>
+    <p>There are currently no applications for this position.</p>
+  </div>
+
+  <div class="applicants-list" *ngIf="!loading && applicants.length > 0">
+    <div *ngFor="let app of applicants" class="glass-card app-card animate-fade-in">
+      <div class="app-header">
+        <div class="applicant-info">
+          <h3>{{ app.jobSeekerName }}</h3>
+          <p class="applicant-email">{{ app.jobSeekerEmail }}</p>
+          <div class="app-meta mt-2">
+            <span>Applied: {{ app.appliedAt | date:'mediumDate' }}</span>
+          </div>
+        </div>
+        
+        <div class="status-badge" [ngClass]="getStatusClass(app.status)">
+          {{ app.status.replace('_', ' ') }}
+        </div>
+      </div>
+      
+      <div class="app-details mt-4">
+        <p *ngIf="app.coverLetter"><strong>Cover Letter:</strong><br>{{ app.coverLetter }}</p>
+        <p *ngIf="app.resumeUrl" class="mt-2">
+          <strong>Resume:</strong> <a [href]="app.resumeUrl" target="_blank" class="resume-link">View Document</a>
+        </p>
+      </div>
+
+      <div class="app-actions mt-4">
+        <strong>Update Status:</strong>
+        <div class="action-buttons mt-2">
+          <button class="btn-sm status-btn review" (click)="updateStatus(app.id, 'UNDER_REVIEW')" [disabled]="updatingId === app.id || app.status === 'UNDER_REVIEW'">Review</button>
+          <button class="btn-sm status-btn shortlist" (click)="updateStatus(app.id, 'SHORTLISTED')" [disabled]="updatingId === app.id || app.status === 'SHORTLISTED'">Shortlist</button>
+          <button class="btn-sm status-btn reject" (click)="updateStatus(app.id, 'REJECTED')" [disabled]="updatingId === app.id || app.status === 'REJECTED'">Reject</button>
+          <button class="btn-sm status-btn hire" (click)="updateStatus(app.id, 'HIRED')" [disabled]="updatingId === app.id || app.status === 'HIRED'">Hire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

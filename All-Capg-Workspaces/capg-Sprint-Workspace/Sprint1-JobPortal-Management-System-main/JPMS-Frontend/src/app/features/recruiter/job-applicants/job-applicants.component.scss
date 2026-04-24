@@ -1,0 +1,45 @@
+@import '../../applications/my-applications/my-applications.component.scss';
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.applicant-email {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.status-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  cursor: pointer;
+  background: white;
+}
+
+.status-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status-btn.review { border-color: #b45309; color: #b45309; }
+.status-btn.review:hover:not(:disabled) { background: #fef3c7; }
+
+.status-btn.shortlist { border-color: #15803d; color: #15803d; }
+.status-btn.shortlist:hover:not(:disabled) { background: #dcfce7; }
+
+.status-btn.reject { border-color: #b91c1c; color: #b91c1c; }
+.status-btn.reject:hover:not(:disabled) { background: #fee2e2; }
+
+.status-btn.hire { border-color: #047857; color: #047857; }
+.status-btn.hire:hover:not(:disabled) { background: #d1fae5; }

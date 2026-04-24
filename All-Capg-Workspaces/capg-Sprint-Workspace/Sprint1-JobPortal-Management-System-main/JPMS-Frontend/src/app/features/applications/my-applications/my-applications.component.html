@@ -1,0 +1,43 @@
+<div class="applications-container">
+  <div class="header-section glass-card animate-fade-in">
+    <h2>My Job Applications</h2>
+    <p class="subtitle">Track the status of jobs you've applied for.</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading your applications...</p>
+  </div>
+
+  <div *ngIf="!loading && applications.length === 0" class="no-results glass-card animate-fade-in">
+    <h3>No Applications Yet</h3>
+    <p>You haven't applied to any jobs yet. Start browsing to find your dream job!</p>
+    <a routerLink="/jobs" class="btn-primary mt-4">Browse Jobs</a>
+  </div>
+
+  <div class="applications-list" *ngIf="!loading && applications.length > 0">
+    <div *ngFor="let app of applications" class="glass-card app-card animate-fade-in">
+      <div class="app-header">
+        <div class="job-info">
+          <h3>Job ID: {{ app.jobId }}</h3>
+          <!-- Note: Ideally backend returns job title, for now we just show job ID -->
+          <div class="app-meta">
+            <span>Applied: {{ app.appliedAt | date:'mediumDate' }}</span>
+          </div>
+        </div>
+        <div class="status-badge" [ngClass]="getStatusClass(app.status)">
+          {{ app.status.replace('_', ' ') }}
+        </div>
+      </div>
+      
+      <div class="app-details mt-4">
+        <p *ngIf="app.coverLetter"><strong>Cover Letter:</strong> {{ app.coverLetter }}</p>
+        <p *ngIf="app.resumeUrl"><strong>Resume:</strong> <a [href]="app.resumeUrl" target="_blank" class="resume-link">View Resume</a></p>
+      </div>
+      
+      <div class="app-footer mt-4">
+        <a [routerLink]="['/jobs', app.jobId]" class="btn-secondary btn-sm">View Job</a>
+      </div>
+    </div>
+  </div>
+</div>
