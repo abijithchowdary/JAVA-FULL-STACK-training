@@ -1,0 +1,18 @@
+<h2 class="title">Paginated items</h2>
+<div class="container">
+  @for (laptop of displayedLaptops(); track $index) {
+    <div class="card">
+      <p class="brand">{{ laptop.brand }}</p>
+      <p class="model">{{ laptop.model }}</p>
+      <p class="price">₹ {{ laptop.price }}</p>
+    </div>
+  }
+</div>
+
+<app-pagination
+  [maxPages]="maxPages()"
+  [itemsPerPage]="itemsPerPage()"
+  [currentPage]="currentPage()"
+  [visiblePages]="10"
+  (pageChange)="onPageChange($event)"
+/>

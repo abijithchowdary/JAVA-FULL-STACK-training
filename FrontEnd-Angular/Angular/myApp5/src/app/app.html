@@ -1,0 +1,15 @@
+<p>{{ longText | truncate:50:'...' }}</p>
+<p>{{longText}}</p>
+
+@if (show) {
+    <p (click)="toggle()">{{ longText | truncate:50:'...' }}</p>
+}
+@else {
+    <p (click)="toggle()">{{longText}}</p>
+}
+
+<p id="para" [appHighlight]="`yellow`">para with highlight action </p>
+<p appHighlight>Text</p>
+
+<h2 #v>view</h2>
+<router-outlet />

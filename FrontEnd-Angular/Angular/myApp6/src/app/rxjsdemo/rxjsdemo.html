@@ -1,0 +1,7 @@
+<p>rxjsdemo works!</p>
+<input type="text" placeholder="input for rxjs" #rxInput>
+<app-cdr-parent></app-cdr-parent>
+
+@ViewChild(cdr-parent) child : cdr-parent;
+@ViewChildren('iduser') list! : QueryList<app-cdr-parent>;
+@ViewChild('rxInput') inputEl! : ElementRef;

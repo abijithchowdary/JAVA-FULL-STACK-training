@@ -1,0 +1,7 @@
+<p>cdr-parent works!</p>
+<div>
+  <div>{{user.username}}</div>
+  <div>{{user.role}}</div>
+</div>
+<button (click)="changeName()">ChangeNameParent</button>
+<app-cdr-child [user]="user"></app-cdr-child>

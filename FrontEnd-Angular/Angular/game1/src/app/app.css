@@ -1,0 +1,32 @@
+/* .parent{
+    background-color: bisque;
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+}
+
+.child{
+    height: 40px;
+    width: 25%;
+    margin: 10px;
+    background-color: aquamarine;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+.parent {
+  display: flex;
+  flex-wrap: wrap;   /* important for grid layout */
+  width: 400px;      /* optional */
+}
+
+.child {
+  width: 25%;        /* 100 / 4 = 25% → 4 per row */
+  height: 100px;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

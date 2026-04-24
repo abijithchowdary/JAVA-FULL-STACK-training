@@ -1,0 +1,64 @@
+<nav class="pagination" aria-label="Pagination">
+  <button
+    class="nav-btn"
+    type="button"
+    (click)="previous()"
+    [disabled]="currentPage === 1"
+  >
+    Previous
+  </button>
+
+  <button
+    class="page-btn"
+    type="button"
+    (click)="goTo(1)"
+    [class.active]="currentPage === 1"
+    [attr.aria-current]="currentPage === 1 ? 'page' : null"
+  >
+    1
+  </button>
+
+  @if (showLeftEllipsis) {
+    <span class="ellipsis" aria-hidden="true">…</span>
+  }
+
+  @for (n of numbers; track n) {
+    @if (n !== 1 && n !== maxPages) {
+      <button
+        class="page-btn"
+        type="button"
+        (click)="goTo(n)"
+        [class.active]="currentPage === n"
+        [attr.aria-current]="currentPage === n ? 'page' : null"
+      >
+        {{ n }}
+      </button>
+    }
+  }
+
+  @if (showRightEllipsis) {
+    <span class="ellipsis" aria-hidden="true">…</span>
+  }
+
+  @if (maxPages > 1) {
+    <button
+      class="page-btn"
+      type="button"
+      (click)="goTo(maxPages)"
+      [class.active]="currentPage === maxPages"
+      [attr.aria-current]="currentPage === maxPages ? 'page' : null"
+    >
+      {{ maxPages }}
+    </button>
+  }
+
+  <button
+    class="nav-btn"
+    type="button"
+    (click)="next()"
+    [disabled]="currentPage === maxPages"
+  >
+    Next
+  </button>
+</nav>
+
