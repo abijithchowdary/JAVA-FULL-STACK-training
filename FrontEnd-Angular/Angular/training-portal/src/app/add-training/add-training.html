@@ -1,0 +1,114 @@
+<h2>Add Training (Manager)</h2>
+
+<form #f="ngForm" (ngSubmit)="addTraining(f)" novalidate>
+  <div>
+    <label>
+      Training Title
+      <input
+        name="title"
+        [(ngModel)]="model.title"
+        #title="ngModel"
+        required
+      />
+    </label>
+    <div *ngIf="title.invalid && (title.dirty || title.touched)">
+      Title is required
+    </div>
+  </div>
+
+  <div>
+    <label>
+      Topic
+      <input
+        name="topic"
+        [(ngModel)]="model.topic"
+        #topic="ngModel"
+        required
+      />
+    </label>
+    <div *ngIf="topic.invalid && (topic.dirty || topic.touched)">
+      Topic is required
+    </div>
+  </div>
+
+  <div>
+    <label>
+      Max Trainees
+      <input
+        type="number"
+        name="maxTrainees"
+        [(ngModel)]="model.maxTrainees"
+        #maxTrainees="ngModel"
+        required
+        min="1"
+      />
+    </label>
+    <div *ngIf="maxTrainees.invalid && (maxTrainees.dirty || maxTrainees.touched)">
+      Enter max trainees (min 1)
+    </div>
+  </div>
+
+  <div>
+    <label>
+      Start Date
+      <input
+        type="date"
+        name="startDate"
+        [(ngModel)]="model.startDate"
+        #startDate="ngModel"
+        required
+      />
+    </label>
+    <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)">
+      Start date is required
+    </div>
+  </div>
+
+  <div>
+    <label>
+      End Date
+      <input
+        type="date"
+        name="endDate"
+        [(ngModel)]="model.endDate"
+        #endDate="ngModel"
+        required
+      />
+    </label>
+    <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)">
+      End date is required
+    </div>
+  </div>
+
+  <div>
+    <label>
+      Trainer Name
+      <input
+        name="trainerName"
+        [(ngModel)]="model.trainerName"
+        #trainerName="ngModel"
+        required
+      />
+    </label>
+    <div *ngIf="trainerName.invalid && (trainerName.dirty || trainerName.touched)">
+      Trainer name is required
+    </div>
+  </div>
+
+  <div>
+    <label>
+      Venue
+      <input
+        name="venue"
+        [(ngModel)]="model.venue"
+        #venue="ngModel"
+        required
+      />
+    </label>
+    <div *ngIf="venue.invalid && (venue.dirty || venue.touched)">
+      Venue is required
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="f.invalid">Add</button>
+</form>

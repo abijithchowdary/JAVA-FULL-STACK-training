@@ -1,0 +1,18 @@
+<h1 style="color:red;">TEST APP HTML</h1>
+
+<h1>Training Portal</h1>
+
+<div style="margin: 8px 0;">
+  Role:
+  <select #roleSel [value]="roleService.role()" (change)="setRole(roleSel.value)">
+    <option value="trainee">Trainee</option>
+    <option value="manager">Manager</option>
+  </select>
+</div>
+
+<a routerLink="/trainings">View Trainings</a> |
+<a *ngIf="roleService.isManager()" routerLink="/add-training">Add Training</a>
+
+<hr>
+
+<router-outlet></router-outlet>

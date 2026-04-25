@@ -1,0 +1,13 @@
+<h2>Upcoming Trainings</h2>
+
+<div *ngIf="trainings.length === 0">
+  No upcoming trainings.
+</div>
+
+<ul *ngIf="trainings.length > 0">
+  <li *ngFor="let t of trainings">
+    <strong>{{ t.title }}</strong> ({{ t.topic }})<br />
+    Trainer: {{ t.trainerName }} | Venue: {{ t.venue }}<br />
+    Dates: {{ t.startDate }} → {{ t.endDate }} | Max: {{ t.maxTrainees }}
+  </li>
+</ul>
